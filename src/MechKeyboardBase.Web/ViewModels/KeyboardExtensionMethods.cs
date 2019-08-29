@@ -7,17 +7,30 @@ namespace MechKeyboardBase.Web.ViewModels
 {
     public static class KeyboardExtensionMethods
     {
-        public static IEnumerable<Keyboard> ToKeyboardViewModel(this IEnumerable<Models.Keyboard> keyboard)
+        public static Keyboard ToKeyboardViewModel(this Models.Keyboard keyboard)
         {
-            return keyboard.Select(
-               item => new Keyboard
-               {
-                   ID = item.ID,
-                   Name = item.Name,
-                   Inspiration = item.Inspiration,
-                   KeyboardDetails = item.KeyboardDetails.ToKeyboardBuildViewModel()
-               });
+            return new Keyboard
+            {
+                ID = keyboard.ID,
+                Name = keyboard.Name,
+                Inspiration = keyboard.Inspiration,
+                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildViewModel()
+            };
         }
+
+
+        public static Models.Keyboard ToKeyboardModel(this Keyboard keyboard)
+        {
+            return new Models.Keyboard
+            {
+                ID = keyboard.ID,
+                Name = keyboard.Name,
+                Inspiration = keyboard.Inspiration,
+                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildModel()
+            };
+        }
+
+
 
     }
 }

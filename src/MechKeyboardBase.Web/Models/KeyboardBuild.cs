@@ -7,6 +7,7 @@ namespace MechKeyboardBase.Web.Models
 {
     public class KeyboardBuild
     {
+        public int Id { get; set; }
         public string Case { get; set; }
         public string PCB { get; set; }
         public string Plate { get; set; }

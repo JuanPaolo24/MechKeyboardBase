@@ -9,57 +9,60 @@ namespace MechKeyboardBase.Web.Data
 {
     public class MechKeyboardRepository : IMechKeyboardRepository
     {
-        private readonly MechKeyboardBaseDbContext context;
+        private readonly MechKeyboardBaseDbContext _context;
 
         public MechKeyboardRepository(MechKeyboardBaseDbContext context)
         {
-            this.context = context;
+            _context = context;
         }
-        public async Task<Keyboard[]> GetAllKeyboardsAsync(bool includeDetails = false)
-        {
-            IQueryable<Keyboard> query = context.Keyboard;
 
-            if (includeDetails)
-            {
-                query = query
-                    .Include(c => c.KeyboardDetails);
-            }
+        public void Add<T>(T entity) where T : class
+        {
+            _context.Add(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+            _context.Remove(entity);
+        }
+
+        public async Task<Keyboard[]> GetAllKeyboardsAsync()
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query
+                 .Include(c => c.KeyboardDetails);
 
             return await query.ToArrayAsync();
         }
 
 
-        public async Task<Keyboard> GetKeyboardByIdAsync(string id, bool includeDetails = false)
+        public async Task<Keyboard> GetKeyboardByIdAsync(int id)
         {
-            IQueryable<Keyboard> query = context.Keyboard;
-
-            if (includeDetails)
-            {
-                query = query
-                    .Include(c => c.KeyboardDetails);
-            }
+            IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query
+                .Include(c => c.KeyboardDetails)
                 .Where(t => t.ID == id);
 
             return await query.FirstOrDefaultAsync();
 
         }
 
-        public async Task<Keyboard> GetKeyboardByNameAsync(string name, bool includeDetails = false)
+        public async Task<Keyboard> GetKeyboardByNameAsync(string name)
         {
-            IQueryable<Keyboard> query = context.Keyboard;
-
-            if (includeDetails)
-            {
-                query = query
-                    .Include(c => c.KeyboardDetails);
-            }
+            IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query
+                .Include(c => c.KeyboardDetails)
                 .Where(t => t.Name == name);
 
             return await query.FirstOrDefaultAsync();
-        } 
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
+        }
     }
 }

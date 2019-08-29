@@ -8,9 +8,13 @@ namespace MechKeyboardBase.Web.Data
 {
     public interface IMechKeyboardRepository
     {
-        Task<Keyboard[]> GetAllKeyboardsAsync(bool includeDetails = false);
-        Task<Keyboard> GetKeyboardByIdAsync(string id, bool includeDetails = false);
-        Task<Keyboard> GetKeyboardByNameAsync(string name, bool includeDetails = false);
+
+        void Add<T>(T entity) where T : class;
+        void Delete<T>(T entity) where T : class;
+        Task<bool> SaveChangesAsync();
+        Task<Keyboard[]> GetAllKeyboardsAsync();
+        Task<Keyboard> GetKeyboardByIdAsync(int id);
+        Task<Keyboard> GetKeyboardByNameAsync(string name);
 
     }
 }

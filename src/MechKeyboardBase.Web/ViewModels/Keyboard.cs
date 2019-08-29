@@ -7,9 +7,9 @@ namespace MechKeyboardBase.Web.ViewModels
 {
     public class Keyboard
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Inspiration { get; set; }
-        public IEnumerable<KeyboardBuild> KeyboardDetails { get; set; }
+        public KeyboardBuild KeyboardDetails { get; set; }
     }
 }
