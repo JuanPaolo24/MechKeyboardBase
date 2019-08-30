@@ -36,19 +36,6 @@ namespace MechKeyboardBase.Web.Data
             return await query.ToArrayAsync();
         }
 
-
-        public async Task<Keyboard> GetKeyboardByIdAsync(int id)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Include(c => c.KeyboardDetails)
-                .Where(t => t.ID == id);
-
-            return await query.FirstOrDefaultAsync();
-
-        }
-
         public async Task<Keyboard> GetKeyboardByNameAsync(string name)
         {
             IQueryable<Keyboard> query = _context.Keyboard;

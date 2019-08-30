@@ -11,7 +11,6 @@ namespace MechKeyboardBase.Web.ViewModels
         {
             return new Keyboard
             {
-                ID = keyboard.ID,
                 Name = keyboard.Name,
                 Inspiration = keyboard.Inspiration,
                 KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildViewModel()
@@ -23,14 +22,11 @@ namespace MechKeyboardBase.Web.ViewModels
         {
             return new Models.Keyboard
             {
-                ID = keyboard.ID,
                 Name = keyboard.Name,
                 Inspiration = keyboard.Inspiration,
                 KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildModel()
             };
         }
-
-
 
     }
 }

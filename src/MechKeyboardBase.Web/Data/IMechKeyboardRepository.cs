@@ -13,7 +13,6 @@ namespace MechKeyboardBase.Web.Data
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
         Task<Keyboard[]> GetAllKeyboardsAsync();
-        Task<Keyboard> GetKeyboardByIdAsync(int id);
         Task<Keyboard> GetKeyboardByNameAsync(string name);
 
     }

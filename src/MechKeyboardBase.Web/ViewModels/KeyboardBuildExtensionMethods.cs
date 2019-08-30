@@ -15,7 +15,7 @@ namespace MechKeyboardBase.Web.ViewModels
                 Case = keyboardbuild.Case,
                 PCB = keyboardbuild.PCB,
                 Plate = keyboardbuild.Plate,
-                KeyCaps = keyboardbuild.KeyCaps,
+                Keycaps = keyboardbuild.Keycaps,
                 Switch = keyboardbuild.Switch
             };
         }
@@ -28,11 +28,10 @@ namespace MechKeyboardBase.Web.ViewModels
                 Case = keyboardbuild.Case,
                 PCB = keyboardbuild.PCB,
                 Plate = keyboardbuild.Plate,
-                KeyCaps = keyboardbuild.KeyCaps,
+                Keycaps = keyboardbuild.Keycaps,
                 Switch = keyboardbuild.Switch
             };
 
         }
-
     }
 }

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MechKeyboardBase.Web.Data;
+﻿using MechKeyboardBase.Web.Data;
 using MechKeyboardBase.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MechKeyboardBase.Web.Controllers
-{   
+{
 
     [Route("api/[controller]")]
     [ApiController]
@@ -41,22 +40,6 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Keyboard>> Get(int id)
-        {
-            try
-            {
-                var results = await _repository.GetKeyboardByIdAsync(id);
-
-                return Ok(results.ToKeyboardViewModel());
-
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-        }
-
         [HttpGet("{name}")]
         public async Task<ActionResult<Keyboard>> Get(string name)
         {
@@ -83,7 +66,7 @@ namespace MechKeyboardBase.Web.Controllers
 
                 _repository.Add(newKeyboard);
 
-                if(await _repository.SaveChangesAsync())
+                if (await _repository.SaveChangesAsync())
                 {
                     return Ok(newKeyboard);
                 }
@@ -96,6 +79,54 @@ namespace MechKeyboardBase.Web.Controllers
             }
 
             return BadRequest();
+        }
+
+
+        [HttpPut("{name}")]
+        public async Task<ActionResult<Keyboard>> Put(string name, Keyboard keyboard)
+        {
+            try
+            {
+                var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
+                if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
+
+                oldKeyboard = keyboard.ToKeyboardModel();
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok(oldKeyboard);
+                }
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+            return BadRequest();
+        }
+
+
+        [HttpDelete("{name}")]
+        public async Task<ActionResult<Keyboard>> Delete(string name)
+        {
+            try
+            {
+                var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
+                if (oldKeyboard == null) return NotFound();
+
+                _repository.Delete(oldKeyboard);
+
+                if (await _repository.SaveChangesAsync())
+                {
+                    return Ok(oldKeyboard.Name + " deleted");
+                }
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+
+            return BadRequest();
+
         }
 
 
