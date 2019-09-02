@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F50DBE2C-01A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MechKeyboardBase.Web", "src\MechKeyboardBase.Web\MechKeyboardBase.Web.csproj", "{DE3C3F01-6D47-4CD4-88FB-3FC6A62B81B5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{1D7AC153-B3D3-440C-ACAE-A5CCF7482735}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MechKeyboardBase.Web.Tests", "tests\MechKeyboardBase.Web.Tests\MechKeyboardBase.Web.Tests.csproj", "{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{DE3C3F01-6D47-4CD4-88FB-3FC6A62B81B5}.Release|x64.Build.0 = Release|Any CPU
 		{DE3C3F01-6D47-4CD4-88FB-3FC6A62B81B5}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE3C3F01-6D47-4CD4-88FB-3FC6A62B81B5}.Release|x86.Build.0 = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|x64.Build.0 = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Debug|x86.Build.0 = Debug|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|x64.ActiveCfg = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|x64.Build.0 = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|x86.ActiveCfg = Release|Any CPU
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DE3C3F01-6D47-4CD4-88FB-3FC6A62B81B5} = {F50DBE2C-01A2-48D0-9154-D0FAF3B2818A}
+		{40F9A4DD-D10E-4D01-B58E-A6CEA1AE8C52} = {1D7AC153-B3D3-440C-ACAE-A5CCF7482735}
 	EndGlobalSection
 EndGlobal

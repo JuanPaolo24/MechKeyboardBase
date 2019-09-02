@@ -27,13 +27,12 @@ namespace MechKeyboardBase.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<IMechKeyboardRepository, MechKeyboardRepository>();
+            services.AddScoped<IKeyboardRepository, KeyboardRepository>();
             services.AddDbContextPool<MechKeyboardBaseDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("MechKeyboardBaseDb"));
             });
 
-            //Add Scope here!
 
             services.Configure<CookiePolicyOptions>(options =>
             {

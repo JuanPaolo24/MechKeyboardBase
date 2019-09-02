@@ -28,5 +28,15 @@ namespace MechKeyboardBase.Web.ViewModels
             };
         }
 
+        public static Models.Keyboard ReplaceKeyboard(this Models.Keyboard oldKeyboard, Keyboard newKeyboard)
+        {
+            oldKeyboard.Name = newKeyboard.Name;
+            oldKeyboard.Inspiration = newKeyboard.Inspiration;
+            oldKeyboard.KeyboardDetails = newKeyboard.KeyboardDetails.ToKeyboardBuildModel();
+
+            return oldKeyboard;
+        }
+
+
     }
 }

@@ -14,10 +14,10 @@ namespace MechKeyboardBase.Web.Controllers
     [ApiController]
     public class KeyboardController : ControllerBase
     {
-        private readonly IMechKeyboardRepository _repository;
+        private readonly IKeyboardRepository _repository;
         private readonly LinkGenerator _linkGenerator;
 
-        public KeyboardController(IMechKeyboardRepository repository, LinkGenerator linkGenerator)
+        public KeyboardController(IKeyboardRepository repository, LinkGenerator linkGenerator)
         {
             _repository = repository;
             _linkGenerator = linkGenerator;
@@ -56,6 +56,23 @@ namespace MechKeyboardBase.Web.Controllers
             }
         }
 
+        [HttpGet("details")]
+        public async Task<ActionResult<Keyboard[]>> Get([FromQuery]KeyboardBuild keyboard)
+        {
+            try
+            {
+                var results = await _repository.GetKeyboardByKeyboardDetails(keyboard.ToKeyboardBuildModel());
+
+                return Ok(results.Select(result => result.ToKeyboardViewModel()).ToArray());
+            }
+            catch (Exception)
+            {
+
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
+            }
+            return BadRequest();
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<Keyboard>> Post(Keyboard keyboard)
@@ -90,11 +107,11 @@ namespace MechKeyboardBase.Web.Controllers
                 var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
                 if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
-                oldKeyboard = keyboard.ToKeyboardModel();
+                oldKeyboard.ReplaceKeyboard(keyboard);
 
                 if (await _repository.SaveChangesAsync())
                 {
-                    return Ok(oldKeyboard);
+                    return Ok(oldKeyboard.ToKeyboardViewModel());
                 }
             }
             catch (Exception)
@@ -113,7 +130,9 @@ namespace MechKeyboardBase.Web.Controllers
                 var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
                 if (oldKeyboard == null) return NotFound();
 
+
                 _repository.Delete(oldKeyboard);
+                _repository.Delete(oldKeyboard.KeyboardDetails);
 
                 if (await _repository.SaveChangesAsync())
                 {
