@@ -63,6 +63,10 @@ namespace MechKeyboardBase.Web.Data
                 if (!string.IsNullOrEmpty(keyboardBuild.Switch))
                     query = query.Where(x => x.KeyboardDetails.Switch == keyboardBuild.Switch);
             }
+
+            query = query
+                .Include(c => c.KeyboardDetails);
+
             return await query.ToArrayAsync();
 
         }
@@ -82,5 +86,6 @@ namespace MechKeyboardBase.Web.Data
         {
             return (await _context.SaveChangesAsync()) > 0;
         }
+
     }
 }

@@ -15,137 +15,104 @@ namespace MechKeyboardBase.Web.Controllers
     public class KeyboardController : ControllerBase
     {
         private readonly IKeyboardRepository _repository;
-        private readonly LinkGenerator _linkGenerator;
 
-        public KeyboardController(IKeyboardRepository repository, LinkGenerator linkGenerator)
+        public KeyboardController(IKeyboardRepository repository)
         {
             _repository = repository;
-            _linkGenerator = linkGenerator;
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Keyboard[]>> Get()
         {
-            try
-            {
-                var results = await _repository.GetAllKeyboardsAsync();
+            var results = await _repository.GetAllKeyboardsAsync();
 
-                return Ok(results.Select(result => result.ToKeyboardViewModel()).ToArray());
+            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
 
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
         }
 
 
         [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Keyboard>> Get(string name)
         {
-            try
-            {
-                var results = await _repository.GetKeyboardByNameAsync(name);
+            var results = await _repository.GetKeyboardByNameAsync(name);
 
-                return Ok(results.ToKeyboardViewModel());
-
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
+            return results.ToKeyboardViewModel();
         }
 
         [HttpGet("details")]
-        public async Task<ActionResult<Keyboard[]>> Get([FromQuery]KeyboardBuild keyboard)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Keyboard[]>> FilterKeyboardSearch([FromQuery] string caseName = null,
+                                                                         [FromQuery] string pcb = null,
+                                                                         [FromQuery] string plate = null,
+                                                                         [FromQuery] string keycaps = null,
+                                                                         [FromQuery] string switchName = null)
         {
-            try
-            {
-                var results = await _repository.GetKeyboardByKeyboardDetails(keyboard.ToKeyboardBuildModel());
 
-                return Ok(results.Select(result => result.ToKeyboardViewModel()).ToArray());
-            }
-            catch (Exception)
-            {
+                var keyboardFilters = new KeyboardBuild()
+                {
+                    Case = caseName,
+                    PCB = pcb,
+                    Plate = plate,
+                    Keycaps = keycaps,
+                    Switch = switchName
+                };
 
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-            return BadRequest();
+                var results = await _repository.GetKeyboardByKeyboardDetails(keyboardFilters.ToKeyboardBuildModel());
+
+                return results[].ToKeyboardViewModel();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<Keyboard>> Post(Keyboard keyboard)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Keyboard>> PostKeyboard(Keyboard keyboard)
         {
-            try
-            {
-                var newKeyboard = keyboard.ToKeyboardModel();
 
-                _repository.Add(newKeyboard);
+            var newKeyboard = keyboard.ToKeyboardModel();
 
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok(newKeyboard);
-                }
+            if (keyboard == null) return BadRequest();
 
-            }
-            catch (Exception)
-            {
-
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-
-            return BadRequest();
+            _repository.Add(newKeyboard);
+            await _repository.SaveChangesAsync();
+            return newKeyboard.ToKeyboardViewModel();
         }
 
 
         [HttpPut("{name}")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Keyboard>> Put(string name, Keyboard keyboard)
         {
-            try
-            {
-                var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
-                if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
-                oldKeyboard.ReplaceKeyboard(keyboard);
+            var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
+            if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok(oldKeyboard.ToKeyboardViewModel());
-                }
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-            return BadRequest();
+            oldKeyboard.ReplaceKeyboard(keyboard);
+            await _repository.SaveChangesAsync();
+
+            return oldKeyboard.ToKeyboardViewModel();
         }
 
 
         [HttpDelete("{name}")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Keyboard>> Delete(string name)
         {
-            try
-            {
-                var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
-                if (oldKeyboard == null) return NotFound();
 
+            var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
+            if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
-                _repository.Delete(oldKeyboard);
-                _repository.Delete(oldKeyboard.KeyboardDetails);
-
-                if (await _repository.SaveChangesAsync())
-                {
-                    return Ok(oldKeyboard.Name + " deleted");
-                }
-            }
-            catch (Exception)
-            {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Database Failure");
-            }
-
-            return BadRequest();
-
+            _repository.Delete(oldKeyboard);
+            _repository.Delete(oldKeyboard.KeyboardDetails);
+            await _repository.SaveChangesAsync();
+            return Accepted(oldKeyboard.Name + " deleted");
         }
 
 
