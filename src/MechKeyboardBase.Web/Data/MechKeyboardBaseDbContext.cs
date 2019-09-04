@@ -1,4 +1,5 @@
-﻿using MechKeyboardBase.Web.Models;
+﻿using MechKeyboardBase.Web.Authentication.Entities;
+using MechKeyboardBase.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,8 @@ namespace MechKeyboardBase.Web.Data
         {
 
         }
+
+        public DbSet<User> Users { get; set; }
         public DbSet<Keyboard> Keyboard { get; set; }
         public DbSet<KeyboardBuild> KeyboardBuild { get; set; }
 

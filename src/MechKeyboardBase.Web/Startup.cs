@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MechKeyboardBase.Web.Authentication;
 using MechKeyboardBase.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,8 @@ namespace MechKeyboardBase.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddCors();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IKeyboardRepository, KeyboardRepository>();
             services.AddDbContextPool<MechKeyboardBaseDbContext>(options =>
             {
@@ -62,6 +65,13 @@ namespace MechKeyboardBase.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
