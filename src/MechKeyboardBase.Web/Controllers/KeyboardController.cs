@@ -64,7 +64,10 @@ namespace MechKeyboardBase.Web.Controllers
 
                 var results = await _repository.GetKeyboardByKeyboardDetails(keyboardFilters.ToKeyboardBuildModel());
 
-                return results[].ToKeyboardViewModel();
+
+
+
+                return results.Select(result => result.ToKeyboardViewModel()).ToArray();
         }
 
 
