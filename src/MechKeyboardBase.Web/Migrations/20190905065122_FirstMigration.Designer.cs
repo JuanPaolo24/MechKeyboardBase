@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechKeyboardBase.Web.Migrations
 {
     [DbContext(typeof(MechKeyboardBaseDbContext))]
-    [Migration("20190829101551_initialdb")]
-    partial class initialdb
+    [Migration("20190905065122_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,27 @@ namespace MechKeyboardBase.Web.Migrations
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MechKeyboardBase.Web.Authentication.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<byte[]>("PasswordHash");
+
+                    b.Property<byte[]>("PasswordSalt");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
 
             modelBuilder.Entity("MechKeyboardBase.Web.Models.Keyboard", b =>
                 {
@@ -48,7 +69,7 @@ namespace MechKeyboardBase.Web.Migrations
 
                     b.Property<string>("Case");
 
-                    b.Property<string>("KeyCaps");
+                    b.Property<string>("Keycaps");
 
                     b.Property<string>("PCB");
 

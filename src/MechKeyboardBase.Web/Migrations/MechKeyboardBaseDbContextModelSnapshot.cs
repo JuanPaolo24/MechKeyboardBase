@@ -19,6 +19,27 @@ namespace MechKeyboardBase.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("MechKeyboardBase.Web.Authentication.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<byte[]>("PasswordHash");
+
+                    b.Property<byte[]>("PasswordSalt");
+
+                    b.Property<string>("UserName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("MechKeyboardBase.Web.Models.Keyboard", b =>
                 {
                     b.Property<int>("ID")
@@ -46,7 +67,7 @@ namespace MechKeyboardBase.Web.Migrations
 
                     b.Property<string>("Case");
 
-                    b.Property<string>("KeyCaps");
+                    b.Property<string>("Keycaps");
 
                     b.Property<string>("PCB");
 

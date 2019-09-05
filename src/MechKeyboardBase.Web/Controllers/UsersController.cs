@@ -56,7 +56,6 @@ namespace MechKeyboardBase.Web.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-
             return Ok(new
             {
                 Id = user.Id,
@@ -65,9 +64,74 @@ namespace MechKeyboardBase.Web.Controllers
                 LastName = user.LastName,
                 Token = tokenString
             });
-
         }
 
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Register([FromBody]UserDto userDto)
+        {
+            var user = _mapper.Map<User>(userDto);
+
+            try
+            {
+                _userService.Create(user, userDto.Password);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var users = _userService.GetAll();
+            var userDtos = _mapper.Map<IList<UserDto>>(users);
+
+            return Ok(userDtos);
+        }
+
+
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var user = _userService.GetById(id);
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return Ok(userDto);
+        }
+
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody]UserDto userDto)
+        {
+            var user = _mapper.Map<User>(userDto);
+            user.Id = id;
+
+
+            try
+            {
+                _userService.Update(user, userDto.Password);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _userService.Delete(id);
+            return Ok();
+        }
 
 
     }
