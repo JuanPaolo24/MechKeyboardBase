@@ -12,3 +12,8 @@ C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\bin\Debug\
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\obj\Debug\netcoreapp2.2\MechKeyboardBase.Web.RazorTargetAssemblyInfo.cache
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\obj\Debug\netcoreapp2.2\MechKeyboardBase.Web.dll
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\obj\Debug\netcoreapp2.2\MechKeyboardBase.Web.pdb
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\bin\Debug\netcoreapp2.2\MechKeyboardBase.Core.dll
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.dll
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\bin\Debug\netcoreapp2.2\MechKeyboardBase.Core.pdb
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.pdb
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Web\obj\Debug\netcoreapp2.2\MechKeyboardBase.Web.csproj.CopyComplete

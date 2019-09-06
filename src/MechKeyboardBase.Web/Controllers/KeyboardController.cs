@@ -1,4 +1,5 @@
-﻿using MechKeyboardBase.Web.Data;
+﻿using MechKeyboardBase.Core.Entities;
+using MechKeyboardBase.Infrastructure.Repositories;
 using MechKeyboardBase.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -26,7 +27,7 @@ namespace MechKeyboardBase.Web.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard[]>> Get()
+        public async Task<ActionResult<KeyboardViewModel[]>> Get()
         {
             var results = await _repository.GetAllKeyboardsAsync();
 
@@ -38,16 +39,16 @@ namespace MechKeyboardBase.Web.Controllers
         [HttpGet("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> Get(string name)
+        public async Task<ActionResult<KeyboardViewModel>> Get(string keyboardname)
         {
-            var results = await _repository.GetKeyboardByNameAsync(name);
+            var results = await _repository.GetKeyboardByNameAsync(keyboardname);
 
             return results.ToKeyboardViewModel();
         }
 
         
         [HttpGet("userprofile")]
-        public async Task<ActionResult<Keyboard[]>> GetByUsename([FromQuery] string username)
+        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsename([FromQuery] string username)
         {
             var results = await _repository.GetKeyboardByUsernameAsync(username);
 
@@ -58,14 +59,14 @@ namespace MechKeyboardBase.Web.Controllers
         [HttpGet("details")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard[]>> FilterKeyboardSearch([FromQuery] string caseName = null,
+        public async Task<ActionResult<KeyboardViewModel[]>> FilterKeyboardSearch([FromQuery] string caseName = null,
                                                                          [FromQuery] string pcb = null,
                                                                          [FromQuery] string plate = null,
                                                                          [FromQuery] string keycaps = null,
                                                                          [FromQuery] string switchName = null)
         {
 
-                var keyboardFilters = new KeyboardBuild()
+                var keyboardFilters = new KeyboardDetails()
                 {
                     Case = caseName,
                     PCB = pcb,
@@ -74,9 +75,7 @@ namespace MechKeyboardBase.Web.Controllers
                     Switch = switchName
                 };
 
-                var results = await _repository.GetKeyboardByKeyboardDetails(keyboardFilters.ToKeyboardBuildModel());
-
-
+                var results = await _repository.GetKeyboardByKeyboardDetails(keyboardFilters);
 
 
                 return results.Select(result => result.ToKeyboardViewModel()).ToArray();
@@ -88,7 +87,7 @@ namespace MechKeyboardBase.Web.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> PostKeyboard([FromBody] Keyboard keyboard)
+        public async Task<ActionResult<KeyboardViewModel>> PostKeyboard([FromBody] KeyboardViewModel keyboard)
         {
 
             keyboard.Username = User.FindFirstValue(ClaimTypes.UserData);
@@ -107,7 +106,7 @@ namespace MechKeyboardBase.Web.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> ReplaceKeyboard([FromQuery] string name, [FromBody] Keyboard keyboard)
+        public async Task<ActionResult<KeyboardViewModel>> ReplaceKeyboard([FromQuery] string name, [FromBody] KeyboardViewModel keyboard)
         {
             var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
             var oldKeyboard = await _repository.GetKeyboardByNameAndUsernameAsync(name, currentUsername);
@@ -125,17 +124,17 @@ namespace MechKeyboardBase.Web.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> DeleteKeyboard([FromQuery] string name)
+        public async Task<ActionResult<Keyboard>> DeleteKeyboard([FromQuery] string keyboardname)
         {
             var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
-            var oldKeyboard = await _repository.GetKeyboardByNameAndUsernameAsync(name, currentUsername);
+            var oldKeyboard = await _repository.GetKeyboardByNameAndUsernameAsync(keyboardname, currentUsername);
                    
-            if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
+            if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {keyboardname}");
 
             _repository.Delete(oldKeyboard);
-            _repository.Delete(oldKeyboard.KeyboardDetails);
+            _repository.Delete(oldKeyboard.Details);
             await _repository.SaveChangesAsync();
-            return Accepted(oldKeyboard.Name + " deleted");
+            return Accepted(oldKeyboard.KeyboardName + " deleted");
         }
 
 

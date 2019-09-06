@@ -16,7 +16,8 @@
 
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\MechKeyboardBase.Core\MechKeyboardBase.Core.csproj" />
+    <ProjectReference Include="..\MechKeyboardBase.Infrastructure\MechKeyboardBase.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿using MechKeyboardBase.Web.Authentication;
-using MechKeyboardBase.Web.Data;
-using MechKeyboardBase.Web.Helpers;
+﻿using MechKeyboardBase.Web.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +11,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using MechKeyboardBase.Infrastructure.Repositories;
+using MechKeyboardBase.Infrastructure;
 
 namespace MechKeyboardBase.Web
 {
@@ -31,12 +31,13 @@ namespace MechKeyboardBase.Web
 
             services.AddCors();
             services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IKeyboardRepository, KeyboardRepository>();
             services.AddDbContextPool<MechKeyboardBaseDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("MechKeyboardBaseDb"));
             });
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IKeyboardRepository, KeyboardRepository>();
+            
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

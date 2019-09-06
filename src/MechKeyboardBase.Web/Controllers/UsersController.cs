@@ -6,9 +6,10 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using MechKeyboardBase.Web.Authentication;
-using MechKeyboardBase.Web.Authentication.Entities;
+using MechKeyboardBase.Core.Entities;
+using MechKeyboardBase.Infrastructure.Repositories;
 using MechKeyboardBase.Web.Helpers;
+using MechKeyboardBase.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -49,7 +50,7 @@ namespace MechKeyboardBase.Web.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.UserData, user.UserName),
+                    new Claim(ClaimTypes.UserData, user.Username),
                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -61,7 +62,7 @@ namespace MechKeyboardBase.Web.Controllers
             return Ok(new
             {
                 Id = user.Id,
-                Username = user.UserName,
+                Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Token = tokenString

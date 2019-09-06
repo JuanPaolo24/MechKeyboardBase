@@ -1,0 +1,9 @@
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\bin\Debug\netstandard2.0\MechKeyboardBase.Core.deps.json
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\bin\Debug\netstandard2.0\MechKeyboardBase.Core.dll
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\bin\Debug\netstandard2.0\MechKeyboardBase.Core.pdb
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.csprojAssemblyReference.cache
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.csproj.CoreCompileInputs.cache
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.AssemblyInfoInputs.cache
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.AssemblyInfo.cs
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.dll
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netstandard2.0\MechKeyboardBase.Core.pdb
