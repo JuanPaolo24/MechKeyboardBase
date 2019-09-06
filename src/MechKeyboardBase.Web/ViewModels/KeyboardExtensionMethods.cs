@@ -13,7 +13,8 @@ namespace MechKeyboardBase.Web.ViewModels
             {
                 Name = keyboard.Name,
                 Inspiration = keyboard.Inspiration,
-                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildViewModel()
+                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildViewModel(),
+                Username = keyboard.Username
             };
         }
 
@@ -24,7 +25,8 @@ namespace MechKeyboardBase.Web.ViewModels
             {
                 Name = keyboard.Name,
                 Inspiration = keyboard.Inspiration,
-                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildModel()
+                KeyboardDetails = keyboard.KeyboardDetails.ToKeyboardBuildModel(),
+                Username = keyboard.Username
             };
         }
 

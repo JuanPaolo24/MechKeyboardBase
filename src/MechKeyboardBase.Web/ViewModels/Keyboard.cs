@@ -13,5 +13,6 @@ namespace MechKeyboardBase.Web.ViewModels
         public string Name { get; set; }
         public string Inspiration { get; set; }
         public KeyboardBuild KeyboardDetails { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechKeyboardBase.Web.Migrations
 {
     [DbContext(typeof(MechKeyboardBaseDbContext))]
-    [Migration("20190905065122_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20190905124819_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,8 @@ namespace MechKeyboardBase.Web.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
+                    b.Property<string>("Role");
+
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
@@ -53,6 +55,8 @@ namespace MechKeyboardBase.Web.Migrations
                     b.Property<int?>("KeyboardDetailsId");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("ID");
 

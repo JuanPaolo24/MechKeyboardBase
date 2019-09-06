@@ -14,6 +14,8 @@ namespace MechKeyboardBase.Web.Data
         Task<bool> SaveChangesAsync();
         Task<Keyboard[]> GetAllKeyboardsAsync();
         Task<Keyboard> GetKeyboardByNameAsync(string name);
+        Task<Keyboard[]> GetKeyboardByUsernameAsync(string username);
+        Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string name, string username);
         Task<Keyboard[]> GetKeyboardByKeyboardDetails(KeyboardBuild keyboardBuild);
 
     }

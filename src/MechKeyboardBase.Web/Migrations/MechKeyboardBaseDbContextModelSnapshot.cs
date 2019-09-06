@@ -33,6 +33,8 @@ namespace MechKeyboardBase.Web.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
+                    b.Property<string>("Role");
+
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
@@ -51,6 +53,8 @@ namespace MechKeyboardBase.Web.Migrations
                     b.Property<int?>("KeyboardDetailsId");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("ID");
 

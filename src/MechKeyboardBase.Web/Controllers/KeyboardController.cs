@@ -1,10 +1,12 @@
 ﻿using MechKeyboardBase.Web.Data;
 using MechKeyboardBase.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MechKeyboardBase.Web.Controllers
@@ -43,6 +45,16 @@ namespace MechKeyboardBase.Web.Controllers
             return results.ToKeyboardViewModel();
         }
 
+        
+        [HttpGet("userprofile")]
+        public async Task<ActionResult<Keyboard[]>> GetByUsename([FromQuery] string username)
+        {
+            var results = await _repository.GetKeyboardByUsernameAsync(username);
+
+            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+        }
+
+
         [HttpGet("details")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,11 +83,15 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
+
         [HttpPost]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> PostKeyboard(Keyboard keyboard)
+        public async Task<ActionResult<Keyboard>> PostKeyboard([FromBody] Keyboard keyboard)
         {
+
+            keyboard.Username = User.FindFirstValue(ClaimTypes.UserData);
 
             var newKeyboard = keyboard.ToKeyboardModel();
 
@@ -87,13 +103,15 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
-        [HttpPut("{name}")]
+        [HttpPut]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> Put(string name, Keyboard keyboard)
+        public async Task<ActionResult<Keyboard>> ReplaceKeyboard([FromQuery] string name, [FromBody] Keyboard keyboard)
         {
+            var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
+            var oldKeyboard = await _repository.GetKeyboardByNameAndUsernameAsync(name, currentUsername);
 
-            var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
             if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
             oldKeyboard.ReplaceKeyboard(keyboard);
@@ -103,13 +121,15 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
-        [HttpDelete("{name}")]
+        [HttpDelete]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Keyboard>> Delete(string name)
+        public async Task<ActionResult<Keyboard>> DeleteKeyboard([FromQuery] string name)
         {
-
-            var oldKeyboard = await _repository.GetKeyboardByNameAsync(name);
+            var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
+            var oldKeyboard = await _repository.GetKeyboardByNameAndUsernameAsync(name, currentUsername);
+                   
             if (oldKeyboard == null) return NotFound($"Could not find a keyboard with name of {name}");
 
             _repository.Delete(oldKeyboard);

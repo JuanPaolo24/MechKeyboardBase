@@ -36,16 +36,6 @@ namespace MechKeyboardBase.Web.Data
             return await query.ToArrayAsync();
         }
 
-        public async Task<Keyboard> GetKeyboardByCaseAsync(string caseName)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Where(c => c.KeyboardDetails.Case == caseName);
-
-            return await query.FirstOrDefaultAsync();
-        }
-
         public async Task<Keyboard[]> GetKeyboardByKeyboardDetails(KeyboardBuild keyboardBuild)
         {
             IQueryable<Keyboard> query = _context.Keyboard;
@@ -70,6 +60,31 @@ namespace MechKeyboardBase.Web.Data
             return await query.ToArrayAsync();
 
         }
+
+        public async Task<Keyboard[]> GetKeyboardByUsernameAsync(string username)
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query
+                .Include(c => c.KeyboardDetails)
+                .Where(t => t.Username == username);
+
+            return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string name, string username)
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query
+                .Include(c => c.KeyboardDetails)
+                .Where(t => t.Username == username && t.Name == name);
+
+
+            return await query.FirstOrDefaultAsync();
+        }
+
 
         public async Task<Keyboard> GetKeyboardByNameAsync(string name)
         {

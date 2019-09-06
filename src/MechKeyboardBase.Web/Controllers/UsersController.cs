@@ -48,7 +48,9 @@ namespace MechKeyboardBase.Web.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.UserData, user.UserName),
+                    new Claim(ClaimTypes.Role, Role.User)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -65,7 +67,6 @@ namespace MechKeyboardBase.Web.Controllers
                 Token = tokenString
             });
         }
-
 
         [AllowAnonymous]
         [HttpPost("register")]
@@ -85,6 +86,7 @@ namespace MechKeyboardBase.Web.Controllers
             }
         }
 
+        [Authorize(Roles = Role.Admin)]
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -95,7 +97,7 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
-
+        [Authorize(Roles = Role.Admin)]
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
