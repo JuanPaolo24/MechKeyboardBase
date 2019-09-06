@@ -50,7 +50,7 @@ namespace MechKeyboardBase.Web.Controllers
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.UserData, user.UserName),
-                    new Claim(ClaimTypes.Role, Role.User)
+                    new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -128,6 +128,7 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
