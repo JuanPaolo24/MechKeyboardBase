@@ -25,28 +25,11 @@ namespace MechKeyboardBase.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DetailsId");
+                    b.Property<string>("Case");
 
-                    b.Property<string>("Inspiration");
+                    b.Property<string>("ImageUrl");
 
                     b.Property<string>("KeyboardName");
-
-                    b.Property<string>("Username");
-
-                    b.HasKey("KeyboardId");
-
-                    b.HasIndex("DetailsId");
-
-                    b.ToTable("Keyboard");
-                });
-
-            modelBuilder.Entity("MechKeyboardBase.Core.Entities.KeyboardDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Case");
 
                     b.Property<string>("Keycaps");
 
@@ -56,9 +39,13 @@ namespace MechKeyboardBase.Infrastructure.Migrations
 
                     b.Property<string>("Switch");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Username");
 
-                    b.ToTable("KeyboardDetails");
+                    b.Property<string>("VideoUrl");
+
+                    b.HasKey("KeyboardId");
+
+                    b.ToTable("Keyboard");
                 });
 
             modelBuilder.Entity("MechKeyboardBase.Core.Entities.User", b =>
@@ -82,13 +69,6 @@ namespace MechKeyboardBase.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("MechKeyboardBase.Core.Entities.Keyboard", b =>
-                {
-                    b.HasOne("MechKeyboardBase.Core.Entities.KeyboardDetails", "Details")
-                        .WithMany()
-                        .HasForeignKey("DetailsId");
                 });
 #pragma warning restore 612, 618
         }

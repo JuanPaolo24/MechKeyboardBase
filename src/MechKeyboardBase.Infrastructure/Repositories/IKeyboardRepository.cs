@@ -13,10 +13,10 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
         Task<Keyboard[]> GetAllKeyboardsAsync();
-        Task<Keyboard> GetKeyboardByNameAsync(string keyboardname);
-        Task<Keyboard[]> GetKeyboardByUsernameAsync(string username);
         Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username);
-        Task<Keyboard[]> GetKeyboardByKeyboardDetails(KeyboardDetails details);
+        Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard);
+
+        Task<Keyboard[]> GetKeyboardByUsernameAsync(string username);
 
     }
 }

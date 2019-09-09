@@ -14,9 +14,14 @@ namespace MechKeyboardBase.Web.ViewModels
             return new KeyboardViewModel
             {
                 KeyboardName = keyboard.KeyboardName,
-                Inspiration = keyboard.Inspiration,
-                Details = keyboard.Details.ToKeyboardDetailsViewModel(),
-                Username = keyboard.Username
+                Case = keyboard.Case,
+                PCB = keyboard.PCB,
+                Plate = keyboard.Plate,
+                Keycaps = keyboard.Keycaps,
+                Switch = keyboard.Switch,
+                Username = keyboard.Username,
+                ImageUrl = keyboard.ImageUrl,
+                VideoUrl = keyboard.VideoUrl
             };
         }
 
@@ -26,17 +31,25 @@ namespace MechKeyboardBase.Web.ViewModels
             return new Keyboard
             {
                 KeyboardName = keyboard.KeyboardName,
-                Inspiration = keyboard.Inspiration,
-                Details = keyboard.Details.ToKeyboardDetailsModel(),
-                Username = keyboard.Username
+                Case = keyboard.Case,
+                PCB = keyboard.PCB,
+                Plate = keyboard.Plate,
+                Keycaps = keyboard.Keycaps,
+                Switch = keyboard.Switch,
+                Username = keyboard.Username,
+                ImageUrl = keyboard.ImageUrl,
+                VideoUrl = keyboard.VideoUrl
             };
         }
 
         public static Keyboard ReplaceKeyboard(this Keyboard oldKeyboard, KeyboardViewModel newKeyboard)
         {
             oldKeyboard.KeyboardName = newKeyboard.KeyboardName;
-            oldKeyboard.Inspiration = newKeyboard.Inspiration;
-            oldKeyboard.Details = newKeyboard.Details.ToKeyboardDetailsModel();
+            oldKeyboard.Case = newKeyboard.Case;
+            oldKeyboard.PCB = newKeyboard.PCB;
+            oldKeyboard.Plate = newKeyboard.Plate;
+            oldKeyboard.Keycaps = newKeyboard.Keycaps;
+            oldKeyboard.Switch = newKeyboard.Switch;
 
             return oldKeyboard;
         }

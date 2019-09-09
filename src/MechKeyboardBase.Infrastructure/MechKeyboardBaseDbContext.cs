@@ -14,6 +14,5 @@ namespace MechKeyboardBase.Infrastructure
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Keyboard> Keyboard { get; set; }
-        public DbSet<KeyboardDetails> KeyboardDetails { get; set; }
     }
 }

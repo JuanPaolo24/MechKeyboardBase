@@ -33,7 +33,9 @@ namespace MechKeyboardBase.Web
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContextPool<MechKeyboardBaseDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("MechKeyboardBaseDb"));
+                //Only for testing
+                options.UseInMemoryDatabase("KeyboardInMemoryDB");
+               //options.UseSqlServer(Configuration.GetConnectionString("MechKeyboardBaseDb"));
             });
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IKeyboardRepository, KeyboardRepository>();

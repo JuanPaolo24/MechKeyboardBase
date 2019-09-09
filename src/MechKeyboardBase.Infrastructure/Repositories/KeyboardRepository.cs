@@ -31,46 +31,30 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         {
             IQueryable<Keyboard> query = _context.Keyboard;
 
-            query = query
-                 .Include(c => c.Details);
-
             return await query.ToArrayAsync();
         }
 
-        public async Task<Keyboard[]> GetKeyboardByKeyboardDetails(KeyboardDetails keyboardDetails)
+        public async Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard)
         {
             IQueryable<Keyboard> query = _context.Keyboard;
 
-            if (keyboardDetails != null)
-            {
-                if (!string.IsNullOrEmpty(keyboardDetails.Case))
-                    query = query.Where(x => x.Details.Case == keyboardDetails.Case);
-                if (!string.IsNullOrEmpty(keyboardDetails.PCB))
-                    query = query.Where(x => x.Details.PCB == keyboardDetails.PCB);
-                if (!string.IsNullOrEmpty(keyboardDetails.Plate))
-                    query = query.Where(x => x.Details.Plate == keyboardDetails.Plate);
-                if (!string.IsNullOrEmpty(keyboardDetails.Keycaps))
-                    query = query.Where(x => x.Details.Keycaps == keyboardDetails.Keycaps);
-                if (!string.IsNullOrEmpty(keyboardDetails.Switch))
-                    query = query.Where(x => x.Details.Switch == keyboardDetails.Switch);
-            }
+            if (!string.IsNullOrEmpty(keyboard.KeyboardName))
+                query = query.Where(x => x.KeyboardName == keyboard.KeyboardName);
+                if (!string.IsNullOrEmpty(keyboard.Case))
+                    query = query.Where(x => x.Case == keyboard.Case);
+                if (!string.IsNullOrEmpty(keyboard.PCB))
+                    query = query.Where(x => x.PCB == keyboard.PCB);
+                if (!string.IsNullOrEmpty(keyboard.Plate))
+                    query = query.Where(x => x.Plate == keyboard.Plate);
+                if (!string.IsNullOrEmpty(keyboard.Keycaps))
+                    query = query.Where(x => x.Keycaps == keyboard.Keycaps);
+                if (!string.IsNullOrEmpty(keyboard.Switch))
+                    query = query.Where(x => x.Switch == keyboard.Switch);
 
-            query = query
-                .Include(c => c.Details);
+
 
             return await query.ToArrayAsync();
 
-        }
-
-        public async Task<Keyboard[]> GetKeyboardByUsernameAsync(string username)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Include(c => c.Details)
-                .Where(t => t.Username == username);
-
-            return await query.ToArrayAsync();
         }
 
 
@@ -79,21 +63,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query
-                .Include(c => c.Details)
                 .Where(t => t.Username == username && t.KeyboardName == keyboardname);
-
-
-            return await query.FirstOrDefaultAsync();
-        }
-
-
-        public async Task<Keyboard> GetKeyboardByNameAsync(string keyboardname)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Include(c => c.Details)
-                .Where(t => t.KeyboardName == keyboardname);
 
             return await query.FirstOrDefaultAsync();
         }
@@ -103,5 +73,14 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return (await _context.SaveChangesAsync()) > 0;
         }
 
+        public async Task<Keyboard[]> GetKeyboardByUsernameAsync(string username)
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query
+                .Where(t => t.Username == username);
+
+            return await query.ToArrayAsync();
+        }
     }
 }
