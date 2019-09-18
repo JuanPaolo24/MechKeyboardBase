@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mechanical Keyboard Hub - Store your precious collection and show it off as a link</title>
+    <meta name="description" content="Mechanical Keyboard Hub is a website that stores peoples mechanical keyboard collection
+    and provides a link to share a detailed representation of their collection to their friends. Gone are the days of having to list out your keyboard specs">
+    <meta name="keywords" content="mechanical keyboard, collection, social">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+
+<body>
+    <header>
+        <ul class="menu">
+            <li class="menu__left">
+                <a href="">Mechanical Keyboard Hub</a>
+            </li>
+            <li class="menu__right">
+                <button id="login">Login</button>
+            </li>
+        </ul>
+    </header>
+
+
+    <div id="modal__container">
+        <span id="modal"></span>
+    </div>
+
+
+
+    <div class="form__login" id="loginform">
+        <form class="form__container">
+            <div class="container__closebtn">
+                <button type="button" class ="form__close" id="closeloginform">x</button>
+            </div>
+        
+            <h1 id="form__title">Login</h1>
+
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            
+            <div id="container__submitbtn">
+                <button type="submit" class="btn" id="loginbtn">Log in</button>
+            </div>
+
+            <div id="form__signupbtn">
+                <button type="button" id="signuplink">No Account? Sign up here!</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="form__signup" id="signupform">
+        <form class="form__container">
+            <div class="container__closebtn">
+                <button type="button" class= "form__close" id="closesignupform">x</button>
+            </div>
+        
+            <h1 id="form__title">Sign Up</h1>
+
+            <label for="username"><b>Username</b></label>
+            <input id="signupuser" type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input id="signuppasssword" type="password" placeholder="Enter Password" name="psw" required>
+
+            <label for="psw"><b>Confirm Password</b></label>
+            <input id="signupconfirm" type="password" placeholder="Confirm Password" name="psw" required>
+
+            <label for="email"><b>Email</b></label>
+            <input id="signupemail" type="text" placeholder="Enter Email" name="email" required>
+            
+            <div id="container__submitbtn">
+                <button type="submit" class="btn">Sign up</button>
+            </div>
+
+            <div id="form__signupbtn">
+                <button type="button" id="loginlink">Already have an account? Login here!</button>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+    <div class="row1">
+        <div id="row1__title">
+            <p>Recent Entries</p>
+        </div>
+        <div class="row1__function">
+            <input id="searchbar" type="text" placeholder="Search by name">
+        </div>
+    </div>
+
+
+    <div class="row2">
+        <div id="row2__leftkeyboard">
+            <div id="row2__leftimage">
+                <img src="images/FirstImage.jpg" width="500" height="300" class="rounded-corners">
+            </div>
+            <div id="row2__leftdescription">
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+            </div>
+            
+        </div>
+        <div id="row2__rightkeyboard">
+            <div id="row2__rightimage">
+                <img src="images/SecondImage.jpg" width="500" height="300" class="rounded-corners">
+            </div>
+            
+            <div id="row2__rightdescription">
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row3">
+        <div id="row3__leftkeyboard">
+            <div id="row3__leftimage">
+                <img src="images/ThirdImage.jpg" width="500" height="300" class="rounded-corners">
+            </div>
+            
+            <div id="row3__leftdescription">
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+            </div>
+        </div>
+        <div id="row3__rightkeyboard">
+            <div id="row3__rightimage">
+                <img src="images/FourthImage.jpg" width="500" height="300" class="rounded-corners">
+            </div>
+            <div id="row3__rightdescription">
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+                <p>KBD67</p>
+            </div>
+        </div>
+    </div>
+    <script async src="js/login.js"></script>
+    <script defer src="js/login.js"></script>
+</body>
+
+</html>

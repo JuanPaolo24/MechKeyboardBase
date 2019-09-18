@@ -12,7 +12,10 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         void Add<T>(T entity) where T : class;
         void Delete<T>(T entity) where T : class;
         Task<bool> SaveChangesAsync();
-        Task<Keyboard[]> GetAllKeyboardsAsync();
+
+        Task<Keyboard[]> GetAllKeyboardAsync();
+        Task<Keyboard[]> GetKeyboardByPageAsync(int pageNumber, int pageSize);
+
         Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username);
         Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard);
 

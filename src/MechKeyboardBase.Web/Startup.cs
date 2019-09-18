@@ -108,7 +108,6 @@ namespace MechKeyboardBase.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseCors(x => x
@@ -124,6 +123,9 @@ namespace MechKeyboardBase.Web
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
         }
     }
 }

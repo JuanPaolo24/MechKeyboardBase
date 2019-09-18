@@ -38,7 +38,7 @@ namespace MechKeyboardBase.Web.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserDto userDto)
         {
-            var user = _userService.Authenticate(userDto.UserName, userDto.Password);
+            var user = _userService.Authenticate(userDto.Username, userDto.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
@@ -63,8 +63,7 @@ namespace MechKeyboardBase.Web.Controllers
             {
                 Id = user.Id,
                 Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Email = user.Email,
                 Token = tokenString
             });
         }

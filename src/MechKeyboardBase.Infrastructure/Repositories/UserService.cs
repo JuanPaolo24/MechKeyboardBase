@@ -84,10 +84,9 @@ namespace MechKeyboardBase.Infrastructure.Repositories
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
 
-            user.FirstName = userParam.FirstName;
-            user.LastName = userParam.LastName;
             user.Username = userParam.Username;
-
+            user.Email = userParam.Email;
+            
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;

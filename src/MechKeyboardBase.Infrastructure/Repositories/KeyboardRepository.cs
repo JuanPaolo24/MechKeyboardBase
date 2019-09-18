@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MechKeyboardBase.Core.Entities;
+using MechKeyboardBase.Infrastructure.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace MechKeyboardBase.Infrastructure.Repositories
@@ -27,11 +28,22 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             _context.Remove(entity);
         }
 
-        public async Task<Keyboard[]> GetAllKeyboardsAsync()
+        public async Task<Keyboard[]> GetAllKeyboardAsync()
         {
+
             IQueryable<Keyboard> query = _context.Keyboard;
 
             return await query.ToArrayAsync();
+        }
+
+
+        public async Task<Keyboard[]> GetKeyboardByPageAsync(int pageNumber, int pageSize)
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            var paginatedList = await Paginator<Keyboard>.CreateAsync(query, pageNumber, pageSize);
+
+            return paginatedList.ToArray();
         }
 
         public async Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard)

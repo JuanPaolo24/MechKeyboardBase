@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mechanical Keyboard Hub - Store your precious collection and show it off as a link</title>
+    <meta name="description" content="Mechanical Keyboard Hub is a website that stores peoples mechanical keyboard collection
+    and provides a link to share a detailed representation of their collection to their friends. Gone are the days of having to list out your keyboard specs">
+    <meta name="keywords" content="mechanical keyboard, collection, social">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+            <ul class="menu">
+                <li class="menu__left">
+                    <a href="userauthenticated.html">Mechanical Keyboard Hub</a>
+                </li>
+                <li class="menu__right">
+                    <a href="account.html">Account</a>
+                    <a href="userprofile.html">Your Collection</a>
+                    <button id="logout">Logout</button>
+                </li>
+            </ul>
+    </header>
+
+    <div class="row1">
+        <div id="row1__title">
+            <p>Account Details</p>
+        </div>
+    </div>
+
+    <div class="formwrapper">
+        <form class="form__accountdetails">
+            <label for="First Name"><b>First Name</b></label>
+            <input type="text" placeholder="Enter Your First Name" name="username" required>
+
+            <label for="Last Name"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter Your Last Name" name="username" required>
+
+            <label for="Username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+            
+            <div id="usertype"><p>Role: User</p></div>
+
+            <div id="form__savebtn">
+                <button type="submit" class="btn" id="saveaccount">Save</button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+    <script async src="js/login.js"></script>
+    <script defer src="js/login.js"></script>
+</body>
+
+</html>

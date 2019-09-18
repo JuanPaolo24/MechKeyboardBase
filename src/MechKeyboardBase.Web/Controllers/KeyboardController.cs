@@ -29,7 +29,7 @@ namespace MechKeyboardBase.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<KeyboardViewModel[]>> Get()
         {
-            var results = await _repository.GetAllKeyboardsAsync();
+            var results = await _repository.GetAllKeyboardAsync();
 
             return results.Select(result => result.ToKeyboardViewModel()).ToArray();
 
@@ -45,7 +45,7 @@ namespace MechKeyboardBase.Web.Controllers
             {
                 KeyboardName = keyboardname
             };
-
+    
             var results = await _repository.FilterKeyboardsAsync(keyboardFilters);
 
             return results.Select(result => result.ToKeyboardViewModel()).ToArray();
