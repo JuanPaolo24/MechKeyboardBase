@@ -233,7 +233,7 @@ namespace MechKeyboardBase.Web.Tests
 
                 //Act
 
-                var listQuery = keyboardRepository.GetKeyboardByPageAsync(2, 1);
+                var listQuery = keyboardRepository.GetKeyboardsByPageAsync(2, 1);
 
                 //Assert
 

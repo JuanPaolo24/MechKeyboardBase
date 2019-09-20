@@ -278,10 +278,10 @@ html, body {
   width: 500px;
 }
 
-#row2__leftdescription, #row2__rightdescription, #row3__leftdescription, #row3__rightdescription {
+#row2__leftdescription {
   position: absolute;
   top: 18%;
-  left: 25%;
+  left: 24%;
   visibility: hidden;
   opacity: 0;
   font-family: 'Lato', sans-serif;
@@ -290,6 +290,46 @@ html, body {
   color: white;
   pointer-events: none;
 }
+
+#row2__rightdescription {
+  position: absolute;
+  top: 18%;
+  right: 40%;
+  visibility: hidden;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  background: transparent;
+  color: white;
+  pointer-events: none;
+}
+
+#row3__leftdescription {
+  position: absolute;
+  bottom: 37%;
+  left: 24%;
+  visibility: hidden;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  background: transparent;
+  color: white;
+  pointer-events: none;
+}
+
+#row3__rightdescription {
+  position: absolute;
+  bottom: 37%;
+  right: 40%;
+  visibility: hidden;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  background: transparent;
+  color: white;
+  pointer-events: none;
+}
+
 
 
 #row2__leftkeyboard:hover #row2__leftdescription {
@@ -320,3 +360,23 @@ img:hover {
 .rounded-corners {
     border-radius: 20px;
 }
+
+.pagination {
+  margin-left: 83%;
+  margin-top: 3%;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}

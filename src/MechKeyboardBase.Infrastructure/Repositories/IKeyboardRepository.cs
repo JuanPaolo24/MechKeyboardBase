@@ -14,7 +14,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         Task<bool> SaveChangesAsync();
 
         Task<Keyboard[]> GetAllKeyboardAsync();
-        Task<Keyboard[]> GetKeyboardByPageAsync(int pageNumber, int pageSize);
+        Task<Keyboard[]> GetKeyboardsByPageAsync(int pageNumber, int pageSize);
 
         Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username);
         Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard);

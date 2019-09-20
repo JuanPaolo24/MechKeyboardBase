@@ -36,6 +36,18 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
+        [HttpGet("page")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<KeyboardViewModel[]>> Get([FromQuery] int number, [FromQuery] int size)
+        {
+            var results = await _repository.GetKeyboardsByPageAsync(number, size);
+
+            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+
+        }
+
+
         [HttpGet("{name}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

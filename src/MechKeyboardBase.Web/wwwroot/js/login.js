@@ -9,37 +9,110 @@ var closeSignup = document.getElementById("closesignupform");
 var modalwrapper = document.getElementById("modal__container");
 var loginbutton = document.getElementById("loginbtn");
 
+var next = document.getElementById("next");
+var previous = document.getElementById("previous");
 
+var row2left = document.getElementById("row2__leftdescription");
+var row2right = document.getElementById("row2__rightdescription");
+var row3left = document.getElementById("row3__leftdescription");
+var row3right = document.getElementById("row3__rightdescription");
+
+var row2leftimg = document.getElementById("row2__leftimage");
+var row2rightimg = document.getElementById("row2__rightimage");
+var row3leftimg = document.getElementById("row3__leftimage");
+var row3rightimg = document.getElementById("row3__rightimage");
+
+
+var rowArray = [row2left, row2right, row3left, row3right];
+var imageArray = [row2leftimg, row2rightimg, row3leftimg, row3rightimg];
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    
+    var pageNumber = 1;
+    fetchCurrentPage(pageNumber);
+});
+
+///https://codepen.io/chichichi/pen/boXOKv Refer to this for pure pagination
+
+function clearView() {
+    for(var i= 0; i < 4; i++) {
+        rowArray[i].innerHTML = "";
+        imageArray[i].innerHTML = "";
+    }
+}
+
+
+next.onclick = function() {
+    clearView();
+    fetchCurrentPage(2);
+}
+
+previous.onclick = function() {
+    clearView();
+    fetchCurrentPage(1);
+}
+
+
+
+function setPaginationSettings() {
     fetch('/api/keyboard')
     .then(function (response) {
         return response.json();
     })
-    .then (function (keyboards) {
-        var row2description = document.getElementById("row2__leftdescription");
+    .then(function (keybs) {
 
-        var keyboardComponents = [
-            keyboards[0].keyboardName,
-            keyboards[0].case,
-            keyboards[0].pcb,
-            keyboards[0].plate,
-            keyboards[0].keycaps,
-            keyboards[0].switch,
-            keyboards[0].username
-        ];
+        var pagesContainer = document.getElementById("pages");
 
-        keyboardComponents.forEach(function(components) {
-            var p = document.createElement('p');
-            p.innerHTML = components;
-            row2description.appendChild(p);
-        });
-
+        var numberOfPage = Math.ceil(keybs.length / 4);
+        console.log(numberOfPage);
+        
+        for(var i=0; i<numberOfPage; i++) {
+            var a = document.createElement('a');
+            a.innerHTML = i + 1;
+            pagesContainer.appendChild(a);
+        }
 
     });
+}
 
-});
+
+function fetchCurrentPage(pageNumber) {
+    var pageSettings = '?number=' + pageNumber + '&size=4';
+    fetch('/api/keyboard/page' + pageSettings)
+    .then(function (response) {
+        return response.json();
+    })
+    .then (function (keyboards) {
+        
+        for(var i= 0; i < keyboards.length; i++) {
+
+            var img = document.createElement('img');
+            img.src = keyboards[i].imageUrl;
+            img.height = 300;
+            img.width = 500;
+            img.className = "rounded-corners";
+            imageArray[i].appendChild(img);
+            
+            var keyboardComponents = [
+	            keyboards[i].keyboardName,
+	            keyboards[i].case,
+	            keyboards[i].pcb,
+	            keyboards[i].plate,
+	            keyboards[i].keycaps,
+	            keyboards[i].switch,
+	            keyboards[i].username
+            ];
+            
+            keyboardComponents.forEach(function (keyboard) {
+                var p = document.createElement('p');
+                p.innerHTML = keyboard;
+                rowArray[i].appendChild(p);
+            });
+            
+        }
+    });
+}
 
 
 
