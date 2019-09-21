@@ -361,22 +361,25 @@ img:hover {
     border-radius: 20px;
 }
 
-.pagination {
-  margin-left: 83%;
-  margin-top: 3%;
+
+.pagination-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+  margin-left: 70%;
+  margin-right: 25%;
 }
 
-.pagination a {
-  color: black;
-  float: left;
-  padding: 8px 16px;
-  text-decoration: none;
-  transition: background-color .3s;
+.clickPageNumber {
+  background-color: lightgrey;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
-.pagination a.active {
+.clickPageNumber.active {
   background-color: dodgerblue;
-  color: white;
+	color: white;
 }
 
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.clickPageNumber:hover:not(.active) {background-color: #ddd;}
