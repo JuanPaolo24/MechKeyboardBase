@@ -1,9 +1,8 @@
-﻿using System;
+﻿using MechKeyboardBase.Core.Entities;
+using MechKeyboardBase.Infrastructure.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MechKeyboardBase.Core.Entities;
-using MechKeyboardBase.Infrastructure.Helpers;
 
 namespace MechKeyboardBase.Infrastructure.Repositories
 {
@@ -33,11 +32,15 @@ namespace MechKeyboardBase.Infrastructure.Repositories
 
         public User Create(User user, string password)
         {
+            
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
             if (_context.Users.Any(x => x.Username == user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
+
+            if (_context.Users.Any(x => x.Email == user.Email))
+                throw new AppException("Email \"" + user.Email + "\" has already been used");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -49,6 +52,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             _context.SaveChanges();
 
             return user;
+
         }
 
         public void Delete(int id)
@@ -86,7 +90,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
 
             user.Username = userParam.Username;
             user.Email = userParam.Email;
-            
+
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;

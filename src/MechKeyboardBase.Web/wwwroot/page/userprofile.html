@@ -21,7 +21,7 @@
                 <li class="menu__right">
                     <a href="account.html">Account</a>
                     <a href="userprofile.html">Your Collection</a>
-                    <button id="login">Logout</button>
+                    <button id="logout">Logout</button>
                 </li>
             </ul>
     </header>
@@ -56,9 +56,12 @@
 
                 <label for="switch"><b>Switch</b></label>
                 <input type="text" placeholder="Enter Switch" name="switch" required>
+
+                <label for="image"><b>Image</b></label>
+                <input type="text" placeholder="Enter Image Url" name="ImageUrl" required>
                 
                 <div id="form__savekeyboard">
-                    <button type="submit" class="btn" id="savekeyboardbtn">Save to Collection</button>
+                    <button type="button" class="btn" id="savekeyboardbtn">Save to Collection</button>
                 </div>
             </form>
     
@@ -67,7 +70,6 @@
 
     <div class="row1">
         <div id="row1__title">
-            <p>Welcome to your Collection Xenous!</p>
         </div>
         <div class="row1__function">
             <input id="searchbar" type="text" placeholder="Search by name">

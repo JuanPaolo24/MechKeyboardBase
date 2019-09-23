@@ -6,4 +6,3 @@ C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netcoreapp2.2\MechKeyboardBase.Core.AssemblyInfo.cs
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netcoreapp2.2\MechKeyboardBase.Core.dll
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netcoreapp2.2\MechKeyboardBase.Core.pdb
-C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Core\obj\Debug\netcoreapp2.2\MechKeyboardBase.Core.csprojAssemblyReference.cache

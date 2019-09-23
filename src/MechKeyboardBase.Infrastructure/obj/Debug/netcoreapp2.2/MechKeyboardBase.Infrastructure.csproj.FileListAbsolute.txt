@@ -1,4 +1,6 @@
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.deps.json
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.runtimeconfig.json
+C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.runtimeconfig.dev.json
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.dll
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.pdb
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Core.dll
@@ -10,5 +12,3 @@ C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\obj\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.csproj.CopyComplete
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\obj\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.dll
 C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\obj\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.pdb
-C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.runtimeconfig.json
-C:\Users\JP-Dev\Development\MechKeyboardBase\src\MechKeyboardBase.Infrastructure\bin\Debug\netcoreapp2.2\MechKeyboardBase.Infrastructure.runtimeconfig.dev.json

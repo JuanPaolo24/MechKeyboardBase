@@ -121,18 +121,6 @@ html, body {
   }
 
 
-  .form__container #container__submitbtn .btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 40%;
-    margin-bottom:10px;
-    opacity: 0.8;
-  }
-
-
   .form__container .btn:hover, .open-button:hover {
     opacity: 1;
   }
@@ -154,11 +142,7 @@ html, body {
     color: red;
   }
 
-#form__signupbtn {
-    text-align: center;
-  }
-
- #signuplink, #loginlink {
+#loginlink {
     background: none;
     border: none;
     padding: 0;
@@ -173,7 +157,7 @@ html, body {
   /*Account Form*/
 
 
-  .form__accountdetails {
+  .form__accountdetails, #form__login {
     height: 100%;
     bottom: 0;
     padding: 10px;
@@ -183,7 +167,8 @@ html, body {
     font-size: 20px;
   }
 
-  .form__accountdetails input[type=text], .form__accountdetails input[type=password] {
+  .form__accountdetails input[type=text], .form__accountdetails input[type=password], #form__login input[type=text],
+  #form__login input[type=password] {
     width: 30%;
     padding: 15px;
     margin: 0px 0 22px 0;
@@ -193,12 +178,13 @@ html, body {
     
   }
 
-  .form__accountdetails input[type=text]:focus, .form__accountdetails input[type=password]:focus {
+  .form__accountdetails input[type=text]:focus, .form__accountdetails input[type=password]:focus, #form__login input[type=text]:focus,
+  #form__login input[type=password]:focus {
     background-color: #ddd;
     outline: none;
   }
 
-  #saveaccount {
+  #saveaccount, #loginbtn, #registerbtn {
     margin-left: 20%;
     background-color: gray;
     color: white;
@@ -210,6 +196,16 @@ html, body {
     opacity: 0.8;
     border-radius: 10px;
   }
+
+#signuplink, #loginlink {
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    margin-top: 1%;
+    background: none;
+    border: none;
+}
+  
 
 
   /*Row 1*/

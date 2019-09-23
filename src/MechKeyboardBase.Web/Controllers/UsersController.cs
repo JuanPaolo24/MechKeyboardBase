@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MechKeyboardBase.Core.Entities;
 using MechKeyboardBase.Infrastructure.Repositories;
-using MechKeyboardBase.Web.Helpers;
+using MechKeyboardBase.Infrastructure.Helpers;
 using MechKeyboardBase.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using MechKeyboardBase.Web.Helpers;
 
 namespace MechKeyboardBase.Web.Controllers
 {
@@ -76,6 +77,7 @@ namespace MechKeyboardBase.Web.Controllers
 
             try
             {
+                user.Role = Role.User;
                 _userService.Create(user, userDto.Password);
                 return Ok();
             }
