@@ -19,12 +19,53 @@ let currentPage = 1;
 
 let page_number = document.getElementById('pages').getElementsByClassName('clickPageNumber'); 
 
+let rightMenu = document.getElementsByClassName("menu__right");
+
 
 document.addEventListener("DOMContentLoaded", function() {
+    loadRightMenu();
     fetchCurrentPage(1);
     paginationSettings();
     clickPage();
 });
+
+
+let loadRightMenu = function() {
+    var session = sessionStorage.getItem('state');
+    var a = document.createElement('a');
+    var account = document.createElement('a');
+    var yourCollection = document.createElement('a');
+    var logout = document.createElement('button');
+
+    if (session == "loggedIn") {
+        a.innerHTML = "";
+
+        account.innerHTML = "Account";
+        account.href = "page/account.html";
+        yourCollection.innerHTML = "Your Collection";
+        yourCollection.href = "page/userprofile.html";
+        logout.innerHTML = "Logout";
+        logout.id = "logout";
+
+        logout.onclick = function() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.reload();
+        }
+
+        rightMenu[0].appendChild(account);
+        rightMenu[0].appendChild(yourCollection);
+        rightMenu[0].appendChild(logout);
+    } else {
+        account.innerHTML = "";
+        yourCollection.innerHTML = "";
+        logout.innerHTML = "";
+
+        a.innerHTML = "Login";
+        a.href = "page/login.html";
+        rightMenu[0].appendChild(a);
+    }
+}
 
 
 ///https://codepen.io/chichichi/pen/boXOKv Refer to this for pure pagination

@@ -9,6 +9,7 @@ function getFormData() {
 }
 
 var localStorage= window.localStorage;
+var sessionStorage = window.sessionStorage;
 
 function postLogin() {
 
@@ -38,6 +39,7 @@ function postLogin() {
         if (status == 200) {
             localStorage.setItem('username', data.username);
             localStorage.setItem('token', data.token);
+            sessionStorage.setItem('state', 'loggedIn');
             window.location = "../page/userprofile.html";
         } else {
             alert("Login failed");

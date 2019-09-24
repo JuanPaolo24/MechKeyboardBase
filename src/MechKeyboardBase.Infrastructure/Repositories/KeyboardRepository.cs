@@ -33,6 +33,8 @@ namespace MechKeyboardBase.Infrastructure.Repositories
 
             IQueryable<Keyboard> query = _context.Keyboard;
 
+            query = query.OrderByDescending(x => x.KeyboardId);
+
             return await query.ToArrayAsync();
         }
 
@@ -40,6 +42,8 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         public async Task<Keyboard[]> GetKeyboardsByPageAsync(int pageNumber, int pageSize)
         {
             IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query.OrderByDescending(x => x.KeyboardId);
 
             var paginatedList = await Paginator<Keyboard>.CreateAsync(query, pageNumber, pageSize);
 
@@ -90,9 +94,25 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query
-                .Where(t => t.Username == username);
+                .Where(t => t.Username == username)
+                .OrderByDescending(x => x.KeyboardId);
+                
+                
 
             return await query.ToArrayAsync();
+        }
+
+        public async Task<Keyboard[]> GetKeyboardByUsernamePageAsync(int pageNumber, int pageSize, string username)
+        {
+            IQueryable<Keyboard> query = _context.Keyboard;
+
+            query = query
+                .Where(t => t.Username == username)
+                .OrderByDescending(x => x.KeyboardId);
+
+            var paginatedList = await Paginator<Keyboard>.CreateAsync(query, pageNumber, pageSize);
+
+            return paginatedList.ToArray();
         }
     }
 }

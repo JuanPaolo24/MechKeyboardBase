@@ -63,11 +63,22 @@ namespace MechKeyboardBase.Web.Controllers
             return results.Select(result => result.ToKeyboardViewModel()).ToArray();
         }
 
-        
+
+
         [HttpGet("userprofile")]
-        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsename([FromQuery] string username)
+        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername([FromQuery] string username)
         {
             var results = await _repository.GetKeyboardByUsernameAsync(username);
+
+            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+        }
+
+
+
+        [HttpGet("userprofile/page")]
+        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername([FromQuery] string username, [FromQuery] int number, [FromQuery] int size)
+        {
+            var results = await _repository.GetKeyboardByUsernamePageAsync(number, size, username);
 
             return results.Select(result => result.ToKeyboardViewModel()).ToArray();
         }

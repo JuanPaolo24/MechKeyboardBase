@@ -16,7 +16,7 @@
     <header>
             <ul class="menu">
                 <li class="menu__left">
-                    <a href="userauthenticated.html">Mechanical Keyboard Hub</a>
+                    <a href="../index.html">Mechanical Keyboard Hub</a>
                 </li>
                 <li class="menu__right">
                     <a href="account.html">Account</a>
@@ -40,22 +40,22 @@
                 <h1 id="form__title">Add a new keyboard</h1>
     
                 <label for="keyboardname"><b>Keyboard Name</b></label>
-                <input type="text" placeholder="Enter Keyboard Name" name="keyboardname" required>
+                <input type="text" placeholder="Enter Keyboard Name" name="KeyboardName" required>
     
                 <label for="keyboardcase"><b>Keyboard Case</b></label>
-                <input type="text" placeholder="Enter Keyboard Case" name="keyboardcase" required>
+                <input type="text" placeholder="Enter Keyboard Case" name="Case" required>
 
                 <label for="pcb"><b>PCB</b></label>
-                <input type="text" placeholder="Enter PCB" name="pcb" required>
+                <input type="text" placeholder="Enter PCB" name="PCB" required>
 
                 <label for="plate"><b>Plate</b></label>
-                <input type="text" placeholder="Enter Plate Type" name="plate" required>
+                <input type="text" placeholder="Enter Plate Type" name="Plate" required>
 
                 <label for="keycaps"><b>Keycaps</b></label>
-                <input type="text" placeholder="Enter Keycaps" name="keycaps" required>
+                <input type="text" placeholder="Enter Keycaps" name="Keycaps" required>
 
                 <label for="switch"><b>Switch</b></label>
-                <input type="text" placeholder="Enter Switch" name="switch" required>
+                <input type="text" placeholder="Enter Switch" name="Switch" required>
 
                 <label for="image"><b>Image</b></label>
                 <input type="text" placeholder="Enter Image Url" name="ImageUrl" required>
@@ -81,31 +81,47 @@
     <div class="row2">
         <div id="row2__leftkeyboard">
             <div id="row2__leftimage">
-                <img src="../images/FirstImage.jpg" width="500" height="300" class="rounded-corners">
             </div>
-            <div id="row2__img">
-                    <p>Keyboard Name: Polar</p>
-                    <p>Case: KBD75</p>
-                    <p>PCB: KBD75</p>
-                    <p>Plate Type: Brass</p>
-                    <p>Keycaps: GMK Polar</p>
-                    <p>Switch: Gateron Black Ink</p>
-                    <p>User: Xenous</p>
-                </div>
+            <div id="row2__leftdescription">
+            </div>
+            
         </div>
         <div id="row2__rightkeyboard">
-            <img src="../images/SecondImage.jpg" width="500" height="300" class="rounded-corners">
+            <div id="row2__rightimage">
+            </div>
+            
+            <div id="row2__rightdescription">
+            </div>
         </div>
+        
     </div>
 
     <div class="row3">
         <div id="row3__leftkeyboard">
-            <img src="../images/ThirdImage.jpg" width="500" height="300" class="rounded-corners">
+            <div id="row3__leftimage">
+            </div>
+            
+            <div id="row3__leftdescription">
+            </div>
         </div>
         <div id="row3__rightkeyboard">
-            <img src="../images/FourthImage.jpg" width="500" height="300" class="rounded-corners">
+            <div id="row3__rightimage">
+            </div>
+            <div id="row3__rightdescription">
+            </div>
         </div>
     </div>
+
+    <div class="pagination">
+        <div class="pagination-container">
+            <span id="previous">&laquo;</span>
+            <div id="pages"></div>
+            <span id="next">&raquo;</span>
+        </div>
+      </div>
+
+
+
     <script async src="../js/userprofile.js"></script>
     <script defer src="../js/userprofile.js"></script>
 </body>
