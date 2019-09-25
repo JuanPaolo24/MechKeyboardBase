@@ -1,55 +1,50 @@
-var password = document.getElementById("register_password");
-var confirmPassword = document.getElementById("register_confirm");
-var register = document.getElementById("registerbtn");
 
+let registerModule = (function () {
+    let password = document.getElementById("register_password");
+    let confirmPassword = document.getElementById("register_confirm");
+    let register = document.getElementById("registerbtn");
+    let form = document.querySelector('form');
 
-function validatePassword() {
-    if(password.value != confirmPassword.value) {
-        return false;
-      } else {
-        return true;
-      }
-}
+    let postRegister = function () {
+        const formData = new FormData(form);
+        let jsonObject = {};
+        formData.delete('confirmpassword');
 
-
-function postRegister() {
-
-    var form = document.querySelector('form');
-    const formData = new FormData(form);
-    let jsonObject = {};
-
-    formData.delete('confirmpassword');
-
-    for (const [key, value]  of formData.entries()) {
-        jsonObject[key] = value;
-    }
-
-    var headers = {
-        "Content-Type": "application/json"                                                                                              
-    }
-
-    fetch('/users/register', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(jsonObject)
-    }).then(function (response) {
-        if (response.status == 200) {
-            alert("register successful");
-        } else {
-            alert("register fail");
+        for (const [key, value]  of formData.entries()) {
+            jsonObject[key] = value;
         }
-        return response.json();
-    });
-}
+
+        var headers = {
+            "Content-Type": "application/json"                                                                                              
+        }
+
+        fetch('/users/register', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(jsonObject)
+        }).then(function (response) {
+            if (response.status == 200) {
+                alert("register successful");
+            } else {
+                alert("register fail");
+            }
+            return response.json();
+        });
+    };
+
+    let validatePassword = function () {
+        if(password.value != confirmPassword.value) {
+            alert("Passwords Don't Match");
+          } else {
+            postRegister();
+          }
+    };
+
+    register.addEventListener('click', validatePassword);
+
+})();
 
 
-
-register.onclick = function() {
-    if (validatePassword() == true) {
-        postRegister();
-    } else {
-        alert("Passwords Don't Match");
-    }
-}
-
-
+(function main() {
+    registerModule;
+})();

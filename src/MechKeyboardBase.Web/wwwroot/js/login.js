@@ -1,54 +1,51 @@
 
-function getFormData() {
-    var form = document.querySelector('form');
-    var data = new FormData(form);
-    
-    for (var pair of data.entries()) {
-        console.log(pair[0]+ ', ' + pair[1]); 
-    }
-}
+let loginModule = (function() {
+    let userInfo = window.localStorage;
+    let loginSession = window.sessionStorage;
+    let form = document.querySelector('form');
+    let login = document.getElementById("loginbtn");
 
-var localStorage= window.localStorage;
-var sessionStorage = window.sessionStorage;
+    let postLogin = function() {
+        const formData = new FormData(form);
+        let jsonObject = {};
 
-function postLogin() {
-
-    var form = document.querySelector('form');
-    const formData = new FormData(form);
-    let jsonObject = {};
-
-    for (const [key, value]  of formData.entries()) {
-        jsonObject[key] = value;
-    }
-
-    var headers = {
-        "Content-Type": "application/json",                                                                                                
-        "Access-Control-Origin": "*"
-    }
-
-    var status;
-
-    fetch('/users/authenticate', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(jsonObject)
-    }).then(function (response) {
-        status = response.status;
-        return response.json();
-    }).then(function(data) {
-        if (status == 200) {
-            localStorage.setItem('username', data.username);
-            localStorage.setItem('token', data.token);
-            sessionStorage.setItem('state', 'loggedIn');
-            window.location = "../page/userprofile.html";
-        } else {
-            alert("Login failed");
+        for (const [key, value]  of formData.entries()) {
+            jsonObject[key] = value;
         }
-    });
-}
 
-document.getElementById("loginbtn").onclick = function() {
-    postLogin();
-}
+        var headers = {
+            "Content-Type": "application/json",                                                                                                
+            "Access-Control-Origin": "*"
+        }
 
+        var status;
+
+        fetch('/users/authenticate', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(jsonObject)
+        }).then(function (response) {
+            status = response.status;
+            return response.json();
+        }).then(function(data) {
+            if (status == 200) {
+                userInfo.setItem('username', data.username);
+                userInfo.setItem('token', data.token);
+                loginSession.setItem('state', 'loggedIn');
+                window.location = "../page/userprofile.html";
+            } else {
+                alert("Login failed");
+            }
+        });
+    };
+
+    login.addEventListener('click', postLogin);
+
+
+})();
+
+
+(function main() {
+    loginModule;
+})();
 
