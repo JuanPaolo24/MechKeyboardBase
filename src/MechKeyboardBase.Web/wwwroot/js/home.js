@@ -37,10 +37,7 @@ let MenuModule = (function() {
             rightMenu[0].appendChild(a);
         }
     }
-
-    return {
-        loadRightMenu : loadRightMenu
-    };
+    loadRightMenu();
 
 })();
 
@@ -102,20 +99,20 @@ let GetContentModule = (function() {
         });
         }
     
-            selectedPage(page_number);
+            selectedPage();
     
         });
     
     }
 
 
-    let selectedPage = function(page) {
-        for (let i = 0; i < page.length; i++) {
+    let selectedPage = function() {
+        for (let i = 0; i < page_number.length; i++) {
             if (i == currentPage - 1) {
-                page[i].style.backgroundColor = "dodgerblue";
+                page_number[i].style.backgroundColor = "dodgerblue";
             } 
             else {
-                page[i].style.backgroundColor = "lightgrey";
+                page_number[i].style.backgroundColor = "lightgrey";
             }
         }  
       }
@@ -178,24 +175,11 @@ let GetContentModule = (function() {
           }
       }
 
-
-
-
-
-    return { 
-        fetchCurrentPage : fetchCurrentPage,
-        paginationSettings : paginationSettings,
-        clickPage : clickPage
-    };
+    fetchCurrentPage(1);
+    paginationSettings();
+    clickPage();
 })();
 
-
-(function main() {
-    MenuModule.loadRightMenu();
-    GetContentModule.fetchCurrentPage(1);
-    GetContentModule.paginationSettings();
-    GetContentModule.clickPage();
-})();
 
 
 

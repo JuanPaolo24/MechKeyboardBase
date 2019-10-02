@@ -37,31 +37,32 @@
                     <button type="button" class="form__close" id="closeaddkeyboardform">x</button>
                 </div>
             
-                <h1 id="form__title">Add a new keyboard</h1>
+                <h1 id="form__title"></h1>
     
                 <label for="keyboardname"><b>Keyboard Name</b></label>
-                <input type="text" placeholder="Enter Keyboard Name" name="KeyboardName" required>
+                <input id="keyboardName" type="text" placeholder="Enter Keyboard Name" name="KeyboardName" required>
     
                 <label for="keyboardcase"><b>Keyboard Case</b></label>
-                <input type="text" placeholder="Enter Keyboard Case" name="Case" required>
+                <input id="keyboardCase" type="text" placeholder="Enter Keyboard Case" name="Case" required>
 
                 <label for="pcb"><b>PCB</b></label>
-                <input type="text" placeholder="Enter PCB" name="PCB" required>
+                <input id="pcb" type="text" placeholder="Enter PCB" name="PCB" required>
 
                 <label for="plate"><b>Plate</b></label>
-                <input type="text" placeholder="Enter Plate Type" name="Plate" required>
+                <input id="plate" type="text" placeholder="Enter Plate Type" name="Plate" required>
 
                 <label for="keycaps"><b>Keycaps</b></label>
-                <input type="text" placeholder="Enter Keycaps" name="Keycaps" required>
+                <input id="keycaps" type="text" placeholder="Enter Keycaps" name="Keycaps" required>
 
                 <label for="switch"><b>Switch</b></label>
-                <input type="text" placeholder="Enter Switch" name="Switch" required>
+                <input id="switch" type="text" placeholder="Enter Switch" name="Switch" required>
 
                 <label for="image"><b>Image</b></label>
-                <input type="text" placeholder="Enter Image Url" name="ImageUrl" required>
+                <input id="image" type="text" placeholder="Enter Image Url" name="ImageUrl" required>
                 
                 <div id="form__savekeyboard">
                     <button type="button" class="btn" id="savekeyboardbtn">Save to Collection</button>
+                    <button type="button" class="btn" id="editkeyboardbtn">Save to Collection</button>
                 </div>
             </form>
     
@@ -82,6 +83,10 @@
         <div id="row2__leftkeyboard">
             <div id="row2__leftimage">
             </div>
+            <div class="keyboardMenu">
+                <button id="row2__leftedit">Edit</button>
+                <button id="row2__leftdelete">Delete</button>
+            </div>
             <div id="row2__leftdescription">
             </div>
             
@@ -89,7 +94,10 @@
         <div id="row2__rightkeyboard">
             <div id="row2__rightimage">
             </div>
-            
+            <div class="keyboardMenu">
+                <button id="row2__rightedit">Edit</button>
+                <button id="row2__rightdelete">Delete</button>
+            </div>
             <div id="row2__rightdescription">
             </div>
         </div>
@@ -100,12 +108,19 @@
         <div id="row3__leftkeyboard">
             <div id="row3__leftimage">
             </div>
-            
+            <div class="keyboardMenu">
+                <button id="row3__leftedit">Edit</button>
+                <button id="row3__leftdelete">Delete</button>
+            </div>
             <div id="row3__leftdescription">
             </div>
         </div>
         <div id="row3__rightkeyboard">
             <div id="row3__rightimage">
+            </div>
+            <div class="keyboardMenu">
+                <button id="row3__rightedit">Edit</button>
+                <button id="row3__rightdelete">Delete</button>
             </div>
             <div id="row3__rightdescription">
             </div>

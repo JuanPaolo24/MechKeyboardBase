@@ -1,4 +1,3 @@
-
 let GetUserContentModule = (function (){
     const next = document.getElementById("next");
     const previous = document.getElementById("previous");
@@ -17,7 +16,9 @@ let GetUserContentModule = (function (){
     let rowArray = [row2left, row2right, row3left, row3right];
     let imageArray = [row2leftimg, row2rightimg, row3leftimg, row3rightimg];
 
+
     let currentPage = 1;
+
 
     let page_number = document.getElementById('pages').getElementsByClassName('clickPageNumber'); 
 
@@ -28,11 +29,11 @@ let GetUserContentModule = (function (){
             return response.json();
         })
         .then (function (keyboards) {
-    
+
         for(var i= 0; i < keyboards.length; i++) {
-    
+
         var img = document.createElement('img');
-        img.src = keyboards[i].imageUrl;
+        img.src = keyboards[i].imageUrl + "?";
         img.height = 300;
         img.width = 500;
         img.className = "rounded-corners";
@@ -53,12 +54,9 @@ let GetUserContentModule = (function (){
             p.innerHTML = keyboard;
             rowArray[i].appendChild(p);
         });
-        
             }
     
             selectedPage();
-            
-    
         });
     
     }
@@ -131,24 +129,37 @@ let GetUserContentModule = (function (){
         }
     }
 
-    return { 
-        fetchCurrentPage : fetchCurrentPage,
-        paginationSettings : paginationSettings,
-        clickPage : clickPage
-    };
+    fetchCurrentPage(1);
+    paginationSettings();
+    clickPage();
 
-})();
+});
 
 let keyboardFormModule = (function () {
     let addButton = document.getElementById("addbtn");
     let closeButton = document.getElementById("closeaddkeyboardform");
     let keyboardForm = document.getElementById("addkeyboard-form");
     let modalwrapper = document.getElementById("modal__container");
+    let savekeyboardBtn = document.getElementById("savekeyboardbtn");
+    let editkeyboardBtn = document.getElementById("editkeyboardbtn");
 
-    let showKeyboardForm = function () {
+    let formTitle = document.getElementById("form__title");
+
+    let showAddKeyboardForm = function () {
+        savekeyboardBtn.style.visibility = "visible";
+        editkeyboardBtn.style.visibility = "hidden";
+        formTitle.innerHTML = "Add a new keyboard";
         keyboardForm.style.display = "block";
         modalwrapper.style.display = "block";
     };
+
+    let showEditKeyboardForm = function () {
+        editkeyboardBtn.style.visibility = "visible";
+        savekeyboardBtn.style.visibility = "hidden";
+        formTitle.innerHTML = "Edit an existing keyboard";
+        keyboardForm.style.display = "block";
+        modalwrapper.style.display = "block";
+    }
 
     let hideKeyboardForm = function () {
         keyboardForm.style.display = "none";
@@ -162,11 +173,15 @@ let keyboardFormModule = (function () {
         }
     }
 
-    addButton.addEventListener('click', showKeyboardForm);
+    addButton.addEventListener('click', showAddKeyboardForm);
     closeButton.addEventListener('click', hideKeyboardForm);
     window.addEventListener('click', showModal);
 
-})();
+    return {
+        showEditKeyboardForm : showEditKeyboardForm
+    };
+
+});
 
 let userSettingsModule = (function () {
     let title = document.getElementById("row1__title");
@@ -174,7 +189,7 @@ let userSettingsModule = (function () {
     let p = document.createElement('p');
     p.innerHTML = "Welcome to your Collection " + localStorage.getItem('username');
     title.appendChild(p);
-})();
+});
 
 let logoutModule = (function () {
     let logout = document.getElementById("logout");
@@ -187,7 +202,7 @@ let logoutModule = (function () {
 
     logout.addEventListener('click', clearSession);
 
-})();
+});
  
 let addKeyboardModule = (function () {
     let save = document.getElementById("savekeyboardbtn");
@@ -226,15 +241,171 @@ let addKeyboardModule = (function () {
     };
 
     save.addEventListener('click', saveKeyboard);
-})();
+});
+
+let editKeyboardModule = (function () {
+    let row2leftdescription = document.getElementById("row2__leftdescription");
+    let row2rightdescription = document.getElementById("row2__rightdescription");
+    let row3leftdescription = document.getElementById("row3__leftdescription");
+    let row3rightdescription = document.getElementById("row3__rightdescription");
+
+    let row2leftedit = document.getElementById("row2__leftedit");
+    let row2rightedit = document.getElementById("row2__rightedit");
+    let row3leftedit = document.getElementById("row3__leftedit");
+    let row3rightedit = document.getElementById("row3__rightedit");
+
+    let save = document.getElementById("editkeyboardbtn");
+    let form = document.querySelector('form');
+
+    let keyboardName = document.getElementById("keyboardName");
+    let keyboardCase = document.getElementById("keyboardCase");
+    let pcb = document.getElementById("pcb");
+    let plate = document.getElementById("plate");
+    let keycaps = document.getElementById("keycaps");
+    let keyboardSwitch = document.getElementById("switch");
+
+    let currentForm;
+
+    let keyboardDetails = [keyboardName, keyboardCase, pcb, plate, keycaps, keyboardSwitch, image];
+
+    let fillForm = function(description) {
+        for (let i = 0; i < keyboardDetails.length - 1; i++) {
+            keyboardDetails[i].value = description.getElementsByTagName('p')[i].innerHTML;
+            keyboardDetails[6].value = "";
+        }
+    };
+
+    let editKeyboard = function(description) {
+        const formData = new FormData(form);
+        let jsonObject = {};
+
+        for (const [key, value]  of formData.entries()) {
+            jsonObject[key] = value;
+        }
+
+        console.log(jsonObject);
+
+        let headers = {
+            "Authorization": "Bearer " + localStorage.getItem('token'),
+            "Content-Type": "application/json",                                                                                                
+            "Access-Control-Origin": "*"
+        }
+
+        let keyboardTitle = description.getElementsByTagName('p')[0].innerHTML;
+
+        
+        fetch('/api/keyboard/?name=' + keyboardTitle, {
+            method: 'PUT',
+            headers: headers,
+            body: JSON.stringify(jsonObject)
+        }).then(function (response) {
+            if (response.status == 200) {
+                alert("Keyboard Edited!");
+                window.location.reload();
+            }  else {
+                alert("Keyboard unabled to be edited!");
+                window.location.reload();
+            }
+        });
+    };
 
 
-(function main() {
-    GetUserContentModule.fetchCurrentPage(1);
-    GetUserContentModule.paginationSettings();
-    GetUserContentModule.clickPage();
-    keyboardFormModule;
-    userSettingsModule;
-    logoutModule;
-    addKeyboardModule;
+    row2leftedit.addEventListener('click', function(){
+        fillForm(row2leftdescription);
+        currentForm = row2leftdescription;
+        keyboardFormModule().showEditKeyboardForm();
+    });
+    row2rightedit.addEventListener('click', function() {
+        fillForm(row2rightdescription);
+        currentForm = row2rightdescription;
+        keyboardFormModule().showEditKeyboardForm();
+    });
+    row3leftedit.addEventListener('click', function() {
+        fillForm(row3leftdescription);
+        currentForm = row3leftdescription;
+        keyboardFormModule().showEditKeyboardForm();
+    });
+    row3rightedit.addEventListener('click', function() {
+        fillForm(row3rightdescription);
+        currentForm = row3rightdescription;
+        keyboardFormModule().showEditKeyboardForm();
+    });
+
+    save.addEventListener('click', function() {
+        editKeyboard(currentForm);
+    });
+
+});
+
+let deleteKeyboardModule = (function () {
+    let row2leftdelete = document.getElementById("row2__leftdelete");
+    let row2rightdelete = document.getElementById("row2__rightdelete");
+    let row3leftdelete = document.getElementById("row3__leftdelete");
+    let row3rightdelete = document.getElementById("row3__rightdelete");
+
+    let row2leftdescription = document.getElementById("row2__leftdescription");
+    let row2rightdescription = document.getElementById("row2__rightdescription");
+    let row3leftdescription = document.getElementById("row3__leftdescription");
+    let row3rightdescription = document.getElementById("row3__rightdescription");
+
+    
+    let deleteKeyboard = function(description) {
+        let headers = {
+            "Authorization": "Bearer " + localStorage.getItem('token'),
+            "Content-Type": "application/json",                                                                                                
+            "Access-Control-Origin": "*"
+        }
+
+        let keyboardTitle = description.getElementsByTagName('p')[0].innerHTML;
+    
+        fetch('/api/keyboard/?keyboardname=' + keyboardTitle, {
+            method: 'DELETE',
+            headers: headers
+        }).then(function (response) {
+            if (response.status == 202) {
+                alert("Keyboard deleted!");
+                window.location.reload();
+            }  else {
+                alert("Keyboard not deleted!");
+                window.location.reload();
+            }
+        });
+    }
+
+    row2leftdelete.addEventListener('click', function() {
+        deleteKeyboard(row2leftdescription);
+    });
+
+    row2rightdelete.addEventListener('click', function() {
+        deleteKeyboard(row2rightdescription);
+    });
+
+    row3leftdelete.addEventListener('click', function() {
+        deleteKeyboard(row3leftdescription);
+    });
+
+    row3rightdelete.addEventListener('click', function() {
+        deleteKeyboard(row3rightdescription);
+    });
+
+});
+
+let checkAuthentication = (function (){
+    let currentSession = sessionStorage.getItem('state');
+
+    if(currentSession == null) {
+        console.log("hit");
+        window.location = "../page/login.html";
+    } else {
+        GetUserContentModule();
+        keyboardFormModule();
+        userSettingsModule();
+        logoutModule();
+        addKeyboardModule();
+    }
 })();
+
+document.addEventListener('DOMContentLoaded', function() {
+    deleteKeyboardModule();
+    editKeyboardModule();
+});

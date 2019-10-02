@@ -50,6 +50,15 @@ namespace MechKeyboardBase.Web.ViewModels
             oldKeyboard.Plate = newKeyboard.Plate;
             oldKeyboard.Keycaps = newKeyboard.Keycaps;
             oldKeyboard.Switch = newKeyboard.Switch;
+            oldKeyboard.ImageUrl = newKeyboard.ImageUrl;
+            oldKeyboard.VideoUrl = newKeyboard.VideoUrl;
+
+            return oldKeyboard;
+        }
+
+        public static Keyboard ReplaceKeyboardUsername(this Keyboard oldKeyboard, string username)
+        {
+            oldKeyboard.Username = username;
 
             return oldKeyboard;
         }

@@ -205,8 +205,17 @@ html, body {
     background: none;
     border: none;
 }
-  
 
+
+
+#savekeyboardbtn {
+  visibility: hidden;
+}
+
+#editkeyboardbtn {
+  visibility: hidden;
+}
+  
 
   /*Row 1*/
 

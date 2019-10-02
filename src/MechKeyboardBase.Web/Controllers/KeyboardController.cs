@@ -148,6 +148,25 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
 
+        [HttpPatch]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<KeyboardViewModel[]>> PatchKeyboard([FromBody] string username)
+        {
+            var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
+            var oldKeyboard = await _repository.GetKeyboardByUsernameAsync(currentUsername);
+
+            if (oldKeyboard == null) return NotFound($"Could not find keyboards under the username {currentUsername}");
+
+            var patchedKeyboard = oldKeyboard.Select(result => result.ReplaceKeyboardUsername(username).ToKeyboardViewModel()).ToArray();
+            await Task.WhenAll(_repository.SaveChangesAsync());
+
+            return patchedKeyboard;
+
+        }
+
+
         [HttpDelete]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status202Accepted)]

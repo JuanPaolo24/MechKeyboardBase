@@ -31,6 +31,7 @@ let loginModule = (function() {
             if (status == 200) {
                 userInfo.setItem('username', data.username);
                 userInfo.setItem('token', data.token);
+                userInfo.setItem('id', data.id);
                 loginSession.setItem('state', 'loggedIn');
                 window.location = "../page/userprofile.html";
             } else {
@@ -45,7 +46,10 @@ let loginModule = (function() {
 })();
 
 
-(function main() {
-    loginModule;
-})();
+let linkModule = (function() {
+    let registerLinkButton = document.getElementById("signuplink");
 
+    registerLinkButton.addEventListener('click', function(){
+        window.location = "../page/register.html";
+    });
+})();

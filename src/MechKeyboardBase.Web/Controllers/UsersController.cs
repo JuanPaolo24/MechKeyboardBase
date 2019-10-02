@@ -115,10 +115,10 @@ namespace MechKeyboardBase.Web.Controllers
         {
             var user = _mapper.Map<User>(userDto);
             user.Id = id;
-
-
+            
             try
             {
+                user.Role = Role.User;
                 _userService.Update(user, userDto.Password);
                 return Ok();
             }

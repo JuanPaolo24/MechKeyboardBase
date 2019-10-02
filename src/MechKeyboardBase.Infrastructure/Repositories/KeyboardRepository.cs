@@ -96,8 +96,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             query = query
                 .Where(t => t.Username == username)
                 .OrderByDescending(x => x.KeyboardId);
-                
-                
+               
 
             return await query.ToArrayAsync();
         }

@@ -25,6 +25,7 @@ let registerModule = (function () {
         }).then(function (response) {
             if (response.status == 200) {
                 alert("register successful");
+                window.location = "../page/login.html";
             } else {
                 alert("register fail");
             }
@@ -44,7 +45,10 @@ let registerModule = (function () {
 
 })();
 
+let linkModule = (function() {
+    let loginLinkButton = document.getElementById("loginlink");
 
-(function main() {
-    registerModule;
+    loginLinkButton.addEventListener('click', function(){
+        window.location = "../page/login.html";
+    });
 })();
