@@ -28,15 +28,26 @@ let loginModule = (function() {
             status = response.status;
             return response.json();
         }).then(function(data) {
-            if (status == 200) {
-                userInfo.setItem('username', data.username);
-                userInfo.setItem('token', data.token);
-                userInfo.setItem('id', data.id);
-                loginSession.setItem('state', 'loggedIn');
-                window.location = "../page/userprofile.html";
-            } else {
-                alert("Login failed");
-            }
+            switch(status) {
+                case 200:
+                    userInfo.setItem('username', data.username);
+                    userInfo.setItem('token', data.token);
+                    userInfo.setItem('id', data.id);
+                    loginSession.setItem('emailstatus', 'confirmed');
+                    loginSession.setItem('state', 'loggedIn');
+                    window.location = "../page/userprofile.html";
+                  break;
+                case 202:
+                    userInfo.setItem('username', data.username);
+                    userInfo.setItem('token', data.token);
+                    userInfo.setItem('id', data.id);
+                    loginSession.setItem('emailstatus', 'notconfirmed');
+                    loginSession.setItem('state', 'loggedIn');
+                    window.location = "../page/userprofile.html";
+                  break;
+                default:
+                  alert("Login failed");
+              }
         });
     };
 

@@ -76,3 +76,16 @@ let logoutModule = (function () {
     logout.addEventListener('click', clearSession);
 
 })();
+
+let checkEmailStatus = (function () {
+    let emailstatus = sessionStorage.getItem('emailstatus');
+    let statusDiv = document.getElementById('row2__status');
+
+    if(emailstatus == 'notconfirmed') {
+        let p = document.createElement('p');
+        p.innerHTML = "Your email has not been activated yet. Please check your inbox for a link to get this done.";
+        statusDiv.appendChild(p);
+    }
+    
+})();
+

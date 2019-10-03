@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MechKeyboardBase.Infrastructure.Repositories;
 using MechKeyboardBase.Infrastructure;
+using MechKeyboardBase.Core.Entities;
+using MechKeyboardBase.Web.Services;
 
 namespace MechKeyboardBase.Web
 {
@@ -43,6 +45,7 @@ namespace MechKeyboardBase.Web
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+            services.AddSingleton<IEmailService, EmailService>();
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();

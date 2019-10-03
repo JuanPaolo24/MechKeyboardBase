@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechKeyboardBase.Infrastructure.Migrations
 {
     [DbContext(typeof(MechKeyboardBaseDbContext))]
-    [Migration("20190916062856_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20191002104707_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,7 +56,11 @@ namespace MechKeyboardBase.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<Guid>("ActivationToken");
+
                     b.Property<string>("Email");
+
+                    b.Property<bool>("EmailConfirmed");
 
                     b.Property<byte[]>("PasswordHash");
 

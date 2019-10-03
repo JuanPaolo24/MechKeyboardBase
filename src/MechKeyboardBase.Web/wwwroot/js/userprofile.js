@@ -189,6 +189,7 @@ let userSettingsModule = (function () {
     let p = document.createElement('p');
     p.innerHTML = "Welcome to your Collection " + localStorage.getItem('username');
     title.appendChild(p);
+
 });
 
 let logoutModule = (function () {

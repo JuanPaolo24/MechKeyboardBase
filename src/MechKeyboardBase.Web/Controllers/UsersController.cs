@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MechKeyboardBase.Web.Helpers;
+using MimeKit;
+using MechKeyboardBase.Web.Services;
 
 namespace MechKeyboardBase.Web.Controllers
 {
@@ -25,12 +27,14 @@ namespace MechKeyboardBase.Web.Controllers
     public class UsersController : ControllerBase
     {
         private IUserService _userService;
+        private readonly IEmailService _emailService;
         private IMapper _mapper;
         private readonly IOptions<AppSettings> _appSettings;
 
-        public UsersController(IUserService userService, IMapper mapper, IOptions<AppSettings> appSettings)
+        public UsersController(IUserService userService, IEmailService emailService, IMapper mapper, IOptions<AppSettings> appSettings)
         {
             _userService = userService;
+            _emailService = emailService;
             _mapper = mapper;
             _appSettings = appSettings;
         }
@@ -60,6 +64,14 @@ namespace MechKeyboardBase.Web.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
+            if (user.EmailConfirmed == false)
+                return Accepted(new {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Email = user.Email,
+                    Token = tokenString
+                });
+
             return Ok(new
             {
                 Id = user.Id,
@@ -78,7 +90,12 @@ namespace MechKeyboardBase.Web.Controllers
             try
             {
                 user.Role = Role.User;
+                user.ActivationToken = Guid.NewGuid();
                 _userService.Create(user, userDto.Password);
+                var link = "http://localhost:6060/users/confirm?id=" + user.Id + "&userToken=" + user.ActivationToken;
+                var message = "Hi, " + user.Username + " please click the link attached to this email to activate your account " + link;
+                Task.WaitAll(_emailService.SendEmailAsync(user.Email, "Confirmation Link", message));
+                
                 return Ok();
             }
             catch (AppException ex)
@@ -87,6 +104,20 @@ namespace MechKeyboardBase.Web.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [AllowAnonymous]
+        [HttpGet("confirm")]
+        public ContentResult EmailLink([FromQuery] int id, [FromQuery] Guid userToken)
+        {
+            _userService.VerifyUser(id, userToken);
+
+            return new ContentResult
+            {
+                ContentType = "text/html",
+                Content = "<div>Your email has been confirmed</div>"
+            };
+        }
+
 
         [Authorize(Roles = Role.Admin)]
         [HttpGet]

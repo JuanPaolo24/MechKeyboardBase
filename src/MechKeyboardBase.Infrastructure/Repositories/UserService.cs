@@ -75,6 +75,20 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return _context.Users.Find(id);
         }
 
+        public User VerifyUser(int id, Guid token)
+        {
+            var user = _context.Users.Find(id);
+
+            if (user.ActivationToken == token && user != null)
+            {
+                user.EmailConfirmed = true;
+                _context.SaveChanges();
+            }
+
+            return user;
+
+        }
+
         public void Update(User userParam, string password = null)
         {
             var user = _context.Users.Find(userParam.Id);
