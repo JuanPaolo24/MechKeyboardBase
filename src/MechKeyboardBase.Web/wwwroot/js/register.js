@@ -3,7 +3,7 @@ let registerModule = (function () {
     let password = document.getElementById("register_password");
     let confirmPassword = document.getElementById("register_confirm");
     let register = document.getElementById("registerbtn");
-    let form = document.querySelector('form');
+    let form = document.getElementById("form__register");
 
     let postRegister = function () {
         const formData = new FormData(form);
@@ -25,7 +25,7 @@ let registerModule = (function () {
         }).then(function (response) {
             if (response.status == 200) {
                 alert("register successful");
-                window.location = "../page/login.html";
+                window.location = "login.html";
             } else {
                 alert("register fail");
             }
@@ -49,6 +49,7 @@ let linkModule = (function() {
     let loginLinkButton = document.getElementById("loginlink");
 
     loginLinkButton.addEventListener('click', function(){
-        window.location = "../page/login.html";
+        window.location = "login.html";
     });
 })();
+

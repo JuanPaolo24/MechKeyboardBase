@@ -101,7 +101,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return await query.ToArrayAsync();
         }
 
-        public async Task<Keyboard[]> GetKeyboardByUsernamePageAsync(int pageNumber, int pageSize, string username)
+        public async Task<Keyboard[]> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username)
         {
             IQueryable<Keyboard> query = _context.Keyboard;
 

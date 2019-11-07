@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -65,8 +64,8 @@ namespace MechKeyboardBase.Web.Controllers
 
 
 
-        [HttpGet("userprofile")]
-        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername([FromQuery] string username)
+        [HttpGet("profile/{username}")]
+        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername(string username)
         {
             var results = await _repository.GetKeyboardByUsernameAsync(username);
 
@@ -75,16 +74,16 @@ namespace MechKeyboardBase.Web.Controllers
 
 
 
-        [HttpGet("userprofile/page")]
-        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername([FromQuery] string username, [FromQuery] int number, [FromQuery] int size)
+        [HttpGet("profile/{username}/page")]
+        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername(string username, [FromQuery] int number, [FromQuery] int size)
         {
-            var results = await _repository.GetKeyboardByUsernamePageAsync(number, size, username);
+            var results = await _repository.GetKeyboardPageByUsernameAsync(number, size, username);
 
             return results.Select(result => result.ToKeyboardViewModel()).ToArray();
         }
 
 
-        [HttpGet("details")]
+        [HttpGet("filter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<KeyboardViewModel[]>> FilterKeyboardSearch([FromQuery] string caseName = null,
@@ -152,12 +151,11 @@ namespace MechKeyboardBase.Web.Controllers
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<KeyboardViewModel[]>> PatchKeyboard([FromBody] string username)
+        public async Task<ActionResult<KeyboardViewModel[]>> PatchKeyboard([FromQuery] string currentusername, [FromBody] string username)
         {
-            var currentUsername = User.FindFirstValue(ClaimTypes.UserData);
-            var oldKeyboard = await _repository.GetKeyboardByUsernameAsync(currentUsername);
+            var oldKeyboard = await _repository.GetKeyboardByUsernameAsync(currentusername);
 
-            if (oldKeyboard == null) return NotFound($"Could not find keyboards under the username {currentUsername}");
+            if (oldKeyboard == null) return NotFound($"Could not find keyboards under the username {currentusername}");
 
             var patchedKeyboard = oldKeyboard.Select(result => result.ReplaceKeyboardUsername(username).ToKeyboardViewModel()).ToArray();
             await Task.WhenAll(_repository.SaveChangesAsync());

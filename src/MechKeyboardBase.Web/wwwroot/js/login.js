@@ -2,7 +2,7 @@
 let loginModule = (function() {
     let userInfo = window.localStorage;
     let loginSession = window.sessionStorage;
-    let form = document.querySelector('form');
+    let form = document.getElementById("form__login");
     let login = document.getElementById("loginbtn");
 
     let postLogin = function() {
@@ -35,7 +35,7 @@ let loginModule = (function() {
                     userInfo.setItem('id', data.id);
                     loginSession.setItem('emailstatus', 'confirmed');
                     loginSession.setItem('state', 'loggedIn');
-                    window.location = "../page/userprofile.html";
+                    window.location = "profile.html";
                   break;
                 case 202:
                     userInfo.setItem('username', data.username);
@@ -43,7 +43,7 @@ let loginModule = (function() {
                     userInfo.setItem('id', data.id);
                     loginSession.setItem('emailstatus', 'notconfirmed');
                     loginSession.setItem('state', 'loggedIn');
-                    window.location = "../page/userprofile.html";
+                    window.location = "profile.html";
                   break;
                 default:
                   alert("Login failed");
@@ -59,8 +59,13 @@ let loginModule = (function() {
 
 let linkModule = (function() {
     let registerLinkButton = document.getElementById("signuplink");
+    let forgetLinkButton = document.getElementById("forgetpasswordlink");
 
     registerLinkButton.addEventListener('click', function(){
-        window.location = "../page/register.html";
+        window.location = "register.html";
     });
+
+    forgetLinkButton.addEventListener('click', function() {
+        window.location = "resetpassword.html";
+    })
 })();

@@ -1,22 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using MechKeyboardBase.Core.Entities;
-using MechKeyboardBase.Infrastructure.Repositories;
 using MechKeyboardBase.Infrastructure.Helpers;
+using MechKeyboardBase.Infrastructure.Repositories;
+using MechKeyboardBase.Web.Helpers;
+using MechKeyboardBase.Web.Services;
 using MechKeyboardBase.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using MechKeyboardBase.Web.Helpers;
-using MimeKit;
-using MechKeyboardBase.Web.Services;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MechKeyboardBase.Web.Controllers
 {
@@ -65,7 +63,8 @@ namespace MechKeyboardBase.Web.Controllers
             var tokenString = tokenHandler.WriteToken(token);
 
             if (user.EmailConfirmed == false)
-                return Accepted(new {
+                return Accepted(new
+                {
                     Id = user.Id,
                     Username = user.Username,
                     Email = user.Email,
@@ -92,10 +91,10 @@ namespace MechKeyboardBase.Web.Controllers
                 user.Role = Role.User;
                 user.ActivationToken = Guid.NewGuid();
                 _userService.Create(user, userDto.Password);
-                var link = "http://localhost:6060/users/confirm?id=" + user.Id + "&userToken=" + user.ActivationToken;
+                var link = "http://localhost:6060/confirmation.html?id=" + user.Id + "&userToken=" + user.ActivationToken;
                 var message = "Hi, " + user.Username + " please click the link attached to this email to activate your account " + link;
                 Task.WaitAll(_emailService.SendEmailAsync(user.Email, "Confirmation Link", message));
-                
+
                 return Ok();
             }
             catch (AppException ex)
@@ -106,16 +105,43 @@ namespace MechKeyboardBase.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("confirm")]
-        public ContentResult EmailLink([FromQuery] int id, [FromQuery] Guid userToken)
+        [HttpPost("password")]
+        public IActionResult SendPasswordReset([FromBody] string email)
+        {
+            //This will be the end point for handling sending the email to the user
+
+            //Check if email exist currently and if it is tied to a user
+            var user = _userService.GetByEmail(email);
+
+            if (user == null)
+                return BadRequest(new { message = "That email does not exist!" });
+
+            var link = "http://localhost:6060/changepassword.html?token=" + user.ActivationToken;
+            var message = "Hi, please click the link attached to this email to reset your password " + link;
+            Task.WaitAll(_emailService.SendEmailAsync(email, "Reset your password", message));
+
+            return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("resetpassword")]
+        public IActionResult ResetPassword([FromQuery] Guid token, [FromBody] string newPassword)
+        {
+            var user = _userService.GetByToken(token);
+
+            user.Role = Role.User;
+            _userService.Update(user, newPassword);
+            return Ok();
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost("confirm")]
+        public IActionResult EmailLink([FromQuery] int id, [FromQuery] Guid userToken)
         {
             _userService.VerifyUser(id, userToken);
 
-            return new ContentResult
-            {
-                ContentType = "text/html",
-                Content = "<div>Your email has been confirmed</div>"
-            };
+            return Ok();
         }
 
 
@@ -146,7 +172,7 @@ namespace MechKeyboardBase.Web.Controllers
         {
             var user = _mapper.Map<User>(userDto);
             user.Id = id;
-            
+
             try
             {
                 user.Role = Role.User;

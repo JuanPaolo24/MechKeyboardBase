@@ -20,7 +20,7 @@ namespace MechKeyboardBase.Infrastructure.Repositories
         Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard);
 
         Task<Keyboard[]> GetKeyboardByUsernameAsync(string username);
-        Task<Keyboard[]> GetKeyboardByUsernamePageAsync(int pageNumber, int pageSize, string username);
+        Task<Keyboard[]> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username);
 
 
 

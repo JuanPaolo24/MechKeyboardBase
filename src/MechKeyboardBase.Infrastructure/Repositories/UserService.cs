@@ -75,6 +75,26 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return _context.Users.Find(id);
         }
 
+        public User GetByEmail(string email)
+        {
+            IQueryable<User> query = _context.Users;
+
+            query = query
+                .Where(x => x.Email == email);
+
+            return query.FirstOrDefault();
+        }
+
+        public User GetByToken(Guid token)
+        {
+            IQueryable<User> query = _context.Users;
+
+            query = query
+                .Where(x => x.ActivationToken == token);
+
+            return query.FirstOrDefault();
+        }
+
         public User VerifyUser(int id, Guid token)
         {
             var user = _context.Users.Find(id);
@@ -118,7 +138,6 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
@@ -150,6 +169,8 @@ namespace MechKeyboardBase.Infrastructure.Repositories
 
             return true;
         }
+
+        
     }
 
 

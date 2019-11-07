@@ -15,6 +15,7 @@
 <body>
     <header>
         <nav role='navigation'>
+
             <div id="menu__icon">
                 <a href="index.html"><img src="resources/images/keyboard.svg" alt="A picture of a keyboard"></a>
             </div>
@@ -28,25 +29,48 @@
               <span></span>
               
               <ul class="menu" id="right">
+                  <a href="account.html"><li>Account</li></a>
+                  <a href="profile.html"><li>Collection</li></a>
+                  <a id="logout" href=""><li>Logout</li></a>
               </ul>
             </div>
           </nav>
     </header>
 
+    <div class="pagetitle">
+        <p>Account Details</p>
+    </div>
 
-    <div class="keyboard__container" id="keyboard__index">
+    <div id="notification">
+        
+    </div>
+
+    <div class="form__container">
+        <form method="post" class="pageform" id="form__accountdetails">
+            <label for="Username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="Email"><b>Email</b></label>
+            <input type="text" placeholder="Enter your email" name="email" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+
+            <div id="usertype">
+                <p>Role: User</p>
+            </div>
+            
+            <div id="form__save">
+                <button type="button" class="form__btn" id="saveaccount">Save</button>
+            </div>
+
+        </form>
     </div>
 
 
-    <div class="pagination__container">
-        <span id="previous">&laquo;</span>
-        <div id="pages"></div>
-        <span id="next">&raquo;</span>
-    </div>
 
-
-    <script async src="js/index.js"></script>
-    <script defer src="js/index.js"></script>
+    <script async src="js/account.js"></script>
+    <script defer src="js/account.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mechanical Keyboard Hub - Store your precious collection and show it off as a link</title>
+    <meta name="description" content="Mechanical Keyboard Hub is a website that stores peoples mechanical keyboard collection
+    and provides a link to share a detailed representation of their collection to their friends. Gone are the days of having to list out your keyboard specs">
+    <meta name="keywords" content="mechanical keyboard, collection, social">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <header>
+        <nav role='navigation'>
+
+            <div id="menu__icon">
+                <a href="index.html"><img src="resources/images/keyboard.svg" alt="A picture of a keyboard"></a>
+            </div>
+
+            <div id="menu__right">
+
+              <input type="checkbox" />
+              
+              <span></span>
+              <span></span>
+              <span></span>
+              
+              <ul class="menu" id="right">
+                  <a href="account.html"><li>Account</li></a>
+                  <a href="profile.html"><li>Collection</li></a>
+                  <a id="logout" href=""><li>Logout</li></a>
+              </ul>
+            </div>
+          </nav>
+    </header>
+
+    <div id="modal__container">
+        <span id="modal"></span>
+    </div>
+
+
+    <div class="popupform__container" id="popupform__addandedit">
+        <form method="post" class="form">
+
+            <div class="container__closebtn">
+                <button type="button" class="form__close" id="closeaddkeyboardform">x</button>
+            </div>
+
+            <h1 id="popupform__title"></h1>
+            <h4 id="popupform__description"></h1>
+
+            <label for="keyboardname"><b>Keyboard Name</b></label>
+            <input id="keyboardName" type="text" placeholder="Enter Keyboard Name" name="KeyboardName" required>
+
+            <label for="keyboardcase"><b>Keyboard Case</b></label>
+            <input id="keyboardCase" type="text" placeholder="Enter Keyboard Case" name="Case" required>
+
+            <label for="pcb"><b>PCB</b></label>
+            <input id="pcb" type="text" placeholder="Enter PCB" name="PCB" required>
+
+            <label for="plate"><b>Plate</b></label>
+            <input id="plate" type="text" placeholder="Enter Plate Type" name="Plate" required>
+
+            <label for="keycaps"><b>Keycaps</b></label>
+            <input id="keycaps" type="text" placeholder="Enter Keycaps" name="Keycaps" required>
+
+            <label for="switch"><b>Switch</b></label>
+            <input id="switch" type="text" placeholder="Enter Switch" name="Switch" required>
+
+            <label for="image"><b>Image</b></label>
+            <input id="image" type="text" placeholder="Enter Image Url" name="ImageUrl" required>
+
+            <label for="video"><b>Video</b></label>
+            <input id="video" type="text" placeholder="Enter Video Url" name="VideoUrl">
+
+            <div id="popupform__savekeyboard">
+                <button type="button" class="form__btn" id="savekeyboardbtn">Save</button>
+                <button type="button" class="form__btn" id="editkeyboardbtn">Save</button>
+            </div>
+
+            <div id="popupform__deletekeyboard">
+                <button type="button" id="deletekeyboardbtn">Delete Keyboard</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div class="pagetitle" id="page__title">
+
+    </div>
+
+    <div class="keyboard__container" id="keyboard__profile">
+            
+        
+
+    </div>
+
+    <div class="addnew__container">
+        <button type="button" class="form__btn" id="addnew">Add New</button>
+    </div>
+
+
+    <div class="pagination__container">
+        <span id="previous">&laquo;</span>
+        <div id="pages"></div>
+        <span id="next">&raquo;</span>
+    </div>
+
+    <script async src="js/profile.js"></script>
+    <script defer src="js/profile.js"></script>
+    
+</body>
+
+</html>

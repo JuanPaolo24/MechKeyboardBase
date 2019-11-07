@@ -28,25 +28,47 @@
               <span></span>
               
               <ul class="menu" id="right">
+                <a href="login.html"><li>Login</li></a>
+                <a href="register.html"><li>Signup</li></a>
               </ul>
             </div>
           </nav>
     </header>
 
+    <div class="pagetitle">
+        <p>Login</p>
+    </div>
 
-    <div class="keyboard__container" id="keyboard__index">
+    <div id="notification">
+        
+    </div>
+
+    <div class="form__container">
+        <form method="post" class="pageform" id="form__login">
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter your username" id="login__username" name="username">
+
+            <label for="password">Password</label>
+            <input type="password" placeholder="Enter your password" id="login__password" name="password">
+            
+            <div id="form__save">
+                <button type="button" class="form__btn" id="loginbtn">Submit</button>
+            </div>
+
+            <div id="form__signup">
+                <button type="button" class="form__link" id="signuplink">No Account? Sign up here!</button>
+            </div>
+
+            <div id="form__forget">
+                <button type="button" class="form__link" id="forgetpasswordlink">Forgot your password?</button>
+            </div>
+        </form>
     </div>
 
 
-    <div class="pagination__container">
-        <span id="previous">&laquo;</span>
-        <div id="pages"></div>
-        <span id="next">&raquo;</span>
-    </div>
 
-
-    <script async src="js/index.js"></script>
-    <script defer src="js/index.js"></script>
+    <script async src="js/login.js"></script>
+    <script defer src="js/login.js"></script>
 </body>
 
 </html>

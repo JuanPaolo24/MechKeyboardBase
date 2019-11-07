@@ -1,21 +1,23 @@
 
 let MenuModule = (function() {
-    let rightMenu = document.getElementsByClassName("menu__right");
-    let session = sessionStorage.getItem('state');
-    let a = document.createElement('a');
-    let account = document.createElement('a');
-    let yourCollection = document.createElement('a');
-    let logout = document.createElement('button');
+    let rightMenu = document.getElementById('right');
 
-    let loadRightMenu = function() {
+    let session = sessionStorage.getItem('state');
+    let loginPage = document.createElement('a');
+    let signupPage = document.createElement('a');
+
+    let account = document.createElement('a');
+    let collection = document.createElement('a');
+    let logout = document.createElement('a');
+
+    let loadMenu = function() {
         if (session == "loggedIn") {
-            a.innerHTML = "";
     
-            account.innerHTML = "Account";
-            account.href = "page/account.html";
-            yourCollection.innerHTML = "Your Collection";
-            yourCollection.href = "page/userprofile.html";
-            logout.innerHTML = "Logout";
+            account.innerHTML = "<li>Account</li>";
+            account.href = "account.html";
+            collection.innerHTML = "<li>Collection</li>";
+            collection.href = "profile.html";
+            logout.innerHTML = "<li>Logout</li>";
             logout.id = "logout";
     
             logout.onclick = function() {
@@ -23,21 +25,30 @@ let MenuModule = (function() {
                 sessionStorage.clear();
                 window.location.reload();
             }
-    
-            rightMenu[0].appendChild(account);
-            rightMenu[0].appendChild(yourCollection);
-            rightMenu[0].appendChild(logout);
+
+            rightMenu.appendChild(account);
+            rightMenu.appendChild(collection);
+            rightMenu.appendChild(logout);
+
         } else {
             account.innerHTML = "";
-            yourCollection.innerHTML = "";
+            collection.innerHTML = "";
             logout.innerHTML = "";
+
+            loginPage.innerHTML = "<li>Login</li>";
+            loginPage.href = "login.html";
+
+            signupPage.innerHTML = "<li>Signup</li>";
+            signupPage.href = "register.html";
     
-            a.innerHTML = "Login";
-            a.href = "page/login.html";
-            rightMenu[0].appendChild(a);
+            rightMenu.appendChild(loginPage);
+            rightMenu.appendChild(signupPage);
+            
         }
     }
-    loadRightMenu();
+
+
+    loadMenu();
 
 })();
 
@@ -46,42 +57,37 @@ let GetContentModule = (function() {
     const next = document.getElementById("next");
     const previous = document.getElementById("previous");
 
-    let row2left = document.getElementById("row2__leftdescription");
-    let row2right = document.getElementById("row2__rightdescription");
-    let row3left = document.getElementById("row3__leftdescription");
-    let row3right = document.getElementById("row3__rightdescription");
-
-    let row2leftimg = document.getElementById("row2__leftimage");
-    let row2rightimg = document.getElementById("row2__rightimage");
-    let row3leftimg = document.getElementById("row3__leftimage");
-    let row3rightimg = document.getElementById("row3__rightimage");
-
-
-    let rowArray = [row2left, row2right, row3left, row3right];
-    let imageArray = [row2leftimg, row2rightimg, row3leftimg, row3rightimg];
+    let keyboardContainer = document.getElementById("keyboard__index");
 
     let currentPage = 1;
 
     let page_number = document.getElementById('pages').getElementsByClassName('clickPageNumber'); 
-    
+
+    let currentPageSize = window.screen.availWidth > 1024 ? 6 : 2;
 
     let fetchCurrentPage = function(pageNumber) {
-        var pageSettings = '?number=' + pageNumber + '&size=4';
+        var pageSettings = '?number=' + pageNumber + '&size=' + currentPageSize;
         fetch('/api/keyboard/page' + pageSettings)
         .then(function (response) {
             return response.json();
         })
         .then (function (keyboards) {
-    
-        for(var i= 0; i < keyboards.length; i++) {
-    
-        var img = document.createElement('img');
-        img.src = keyboards[i].imageUrl;
-        img.height = 300;
-        img.width = 500;
-        img.className = "rounded-corners";
-        imageArray[i].appendChild(img);
         
+        for(var i= 0; i < keyboards.length; i++) {
+
+        var keyboardItem = document.createElement('div');
+        keyboardItem.className = "keyboard__item";
+        keyboardItem.id = "keyboard" + i;
+        
+        var img = document.createElement('img');
+        img.className = "background__img";
+        img.src = keyboards[i].imageUrl;
+        
+
+        var description = document.createElement('div');
+        description.className = "keyboard__info";
+        description.id = "keyboard__description" + i;
+
         var keyboardComponents = [
             keyboards[i].keyboardName,
             keyboards[i].case,
@@ -95,8 +101,13 @@ let GetContentModule = (function() {
         keyboardComponents.forEach(function (keyboard) {
             var p = document.createElement('p');
             p.innerHTML = keyboard;
-            rowArray[i].appendChild(p);
+            description.appendChild(p);
         });
+
+        keyboardItem.appendChild(img);
+        keyboardItem.appendChild(description);
+        keyboardContainer.appendChild(keyboardItem);
+        
         }
     
             selectedPage();
@@ -107,12 +118,15 @@ let GetContentModule = (function() {
 
 
     let selectedPage = function() {
+
         for (let i = 0; i < page_number.length; i++) {
             if (i == currentPage - 1) {
-                page_number[i].style.backgroundColor = "dodgerblue";
+                page_number[i].style.backgroundColor = "black";
+                page_number[i].style.color = "white";
             } 
             else {
-                page_number[i].style.backgroundColor = "lightgrey";
+                page_number[i].style.backgroundColor = "white";
+                page_number[i].style.color = "black";
             }
         }  
       }
@@ -121,7 +135,7 @@ let GetContentModule = (function() {
           document.addEventListener('click', function(e) {
               if(e.target.nodeName == "SPAN" && e.target.classList.contains("clickPageNumber")) {
                   currentPage = e.target.textContent;
-                  clearView();
+                  keyboardContainer.innerHTML = "";
                   fetchCurrentPage(currentPage);
       
               }
@@ -138,7 +152,7 @@ let GetContentModule = (function() {
       
           var pagesContainer = document.getElementById("pages");
       
-          var numberOfPage = Math.ceil(keybs.length / 4);
+          var numberOfPage = Math.ceil(keybs.length / currentPageSize);
       
           pageNumber = numberOfPage;
       
@@ -146,12 +160,13 @@ let GetContentModule = (function() {
               pagesContainer.innerHTML += "<span class='clickPageNumber'>" + i + "</span>";
           }
           
-          page_number[0].style.backgroundColor = "dodgerblue";
+          page_number[0].style.backgroundColor = "black";
+          page_number[0].style.color = "white";
       
           next.onclick = function() {
               if(currentPage < pageNumber) {
                   currentPage++;
-                  clearView();
+                  keyboardContainer.innerHTML = "";
                   fetchCurrentPage(currentPage);
               }
           }
@@ -159,7 +174,7 @@ let GetContentModule = (function() {
           previous.onclick = function() {
               if(currentPage > 1) {
                   currentPage--;
-                  clearView();
+                  keyboardContainer.innerHTML = "";
                   fetchCurrentPage(currentPage);
               }
           }   
@@ -167,13 +182,6 @@ let GetContentModule = (function() {
           });
       }
       
-      
-      let clearView = function() {
-          for(var i= 0; i < 4; i++) {
-              rowArray[i].innerHTML = "";
-              imageArray[i].innerHTML = "";
-          }
-      }
 
     fetchCurrentPage(1);
     paginationSettings();

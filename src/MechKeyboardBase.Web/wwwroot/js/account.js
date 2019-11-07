@@ -3,14 +3,13 @@ let checkAuthentication = (function (){
     let currentSession = sessionStorage.getItem('state');
 
     if(currentSession == null) {
-        console.log("hit");
-        window.location = "../page/login.html";
+        window.location = "login.html";
     } 
 })();
 
 
 let changeUserSettings = (function () {
-    let form = document.querySelector('form');
+    let form = document.getElementById('form__accountdetails');
     let saveAccount = document.getElementById('saveaccount');
     let userInfo = window.localStorage;
 
@@ -34,9 +33,8 @@ let changeUserSettings = (function () {
             headers: headers,
             body: JSON.stringify(jsonObject)
         }).then(function (response) {
-            console.log(response);
             if(response.status == 200) {
-                fetch('/api/keyboard', {
+                fetch('/api/keyboard?currentusername=' + userInfo.getItem('username'), {
                     method: 'PATCH',
                     headers: headers,
                     body: JSON.stringify(jsonObject.username)
@@ -70,7 +68,7 @@ let logoutModule = (function () {
     let clearSession = function() {
         localStorage.clear();
         sessionStorage.clear();
-        window.location = "../index.html"
+        window.location = "index.html"
     };
 
     logout.addEventListener('click', clearSession);
@@ -79,7 +77,7 @@ let logoutModule = (function () {
 
 let checkEmailStatus = (function () {
     let emailstatus = sessionStorage.getItem('emailstatus');
-    let statusDiv = document.getElementById('row2__status');
+    let statusDiv = document.getElementById('notification');
 
     if(emailstatus == 'notconfirmed') {
         let p = document.createElement('p');

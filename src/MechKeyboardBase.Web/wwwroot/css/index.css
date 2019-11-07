@@ -1,0 +1,1005 @@
+html,
+body
+{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  
+  background: #B2DEED;
+  color: #cdcdcd;
+  font-family: 'Lato', sans-serif;
+}
+
+
+/*** Navigation Bar ***/
+
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*** Center Menu (Icon) ***/
+
+#menu__icon {
+    height: 35px;
+    width: 50px;
+    margin-left: 20px;
+}
+
+
+/*** Right Menu (Hamburger) ***/
+
+#menu__right
+{
+  display: block;
+  position: relative;
+  top: 15px;
+  right: 5%;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menu__right input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  opacity: 0; 
+  z-index: 2; 
+  
+  -webkit-touch-callout: none;
+}
+
+
+#menu__right span
+{
+  display: block;
+  width: 25px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: black;
+  border-radius: 3px;
+  
+  z-index: 1;
+}
+
+
+#menu__right input:checked ~ ul
+{
+  transform: scale(1.0, 1.0);
+  opacity: 1;
+}
+
+
+.menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 0;
+  padding: 50px;
+  padding-top: 125px;
+  right: -100px;
+  border-radius: 15px;
+  
+  
+  background: #dbf0f7;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+.menu a
+{
+  text-decoration: none;
+  color: #232323;
+  
+  transition: color 0.3s ease;
+}
+
+.menu a:hover
+{
+  color: tomato;
+}
+
+.menu li
+{
+  padding-bottom: 5px;
+  padding-left: 0px;
+  margin-right: 5px;
+  font-size: 23px;
+}
+
+
+/***Pop up form**/
+
+
+.popupform__container{
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9;
+  height: 100%;
+  width: 100%;
+  font-family: 'Lato', sans-serif;
+  background: #B2DEED;
+}
+
+#popupform__addandedit {
+  margin-left:0%;
+}
+
+#popupform__title {
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 10%;
+  color: black;
+}
+
+#popupform__description {
+  margin: 0;
+  text-align: center;
+  margin-bottom: 8%;
+  color: black;
+}
+
+.popupform__container label {
+  display: none;
+}
+
+.popupform__container input[type=text],
+.popupform__container input[type=password] {
+  width: 80%;
+  margin-left: 8%;
+  text-align: center;
+  margin-bottom: 3%;
+  padding: 10px;
+  border: none;
+  background: #D8D8D8;
+  border-radius: 10px;
+}
+
+.popupform__container input[type=text]:focus,
+.popupform__container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.popupform__container .btn:hover,
+.open-button:hover {
+  opacity: 1;
+}
+
+.container__closebtn {
+  position: absolute;
+  right: 3%;
+  top: 0%;
+}
+
+.form__close {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 40px;
+  color: red;
+}
+
+#popupform__savekeyboard {
+  text-align: center;
+  margin-top: 2%;
+}
+
+#savekeyboardbtn {
+  margin-left: 0%;
+  display: none;
+}
+
+#editkeyboardbtn {
+  margin-left: 0%;
+}
+
+#popupform__deletekeyboard {
+  margin-top: 3%;
+  text-align: center;
+}
+
+#deletekeyboardbtn {
+  display: none;
+  color: red;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+
+/*** Keyboard Container ***/
+
+.keyboard__container {
+    position: relative;
+    height: 60%;
+    width: 100%;
+}
+
+#keyboard__index {
+  margin-top: 15%;
+}
+
+#keyboard__profile {
+  margin-top: 5%;
+}
+
+.keyboard__item {
+  height: 40%;
+  width: 90%;
+  padding-left: 5%;
+  padding-top: 5%;
+}
+
+.background__img{
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.keyboard__info {
+  position: absolute;
+  visibility: hidden;
+  opacity: 0;
+  font-family: 'Lato', sans-serif;
+  font-size: 8px;
+  background: transparent;
+  color: white;
+  pointer-events: none;
+  margin-left: 5%;
+}
+
+#keyboard__description0 {
+  top: 5%;
+}
+
+#keyboard__description1 {
+  top: 50%;
+}
+
+#keyboard0:hover #keyboard__description0,
+#keyboard1:hover #keyboard__description1,
+#keyboard2:hover #keyboard__description2,
+#keyboard3:hover #keyboard__description3,
+#keyboard4:hover #keyboard__description4,
+#keyboard5:hover #keyboard__description5 {
+    visibility: visible;
+    opacity: 1;
+}
+
+.background__img:hover {
+  -webkit-filter: blur(4px);
+  filter: blur(4px);
+}
+
+
+/*** profile css ***/
+
+
+.edit__img {
+  position: absolute;
+  top: 5%;
+  right: 7%;
+  visibility: hidden;
+  opacity: 0;
+  border-radius: 10px;
+  height: 25px;
+  width: 25px;
+  background-color: gray;
+}
+
+#editbutton0 {
+  top: 5%;
+}
+
+#editbutton1 {
+  top: 50%;
+}
+
+#keyboard0:hover #editbutton0,
+#keyboard1:hover #editbutton1,
+#keyboard2:hover #editbutton2,
+#keyboard3:hover #editbutton3,
+#keyboard4:hover #editbutton4,
+#keyboard5:hover #editbutton5 {
+  visibility: visible;
+  opacity: 1;
+}
+
+.addnew__container {
+  text-align: center;
+}
+
+#addnew {
+  margin-left: 0%;
+  margin-bottom: 0px;
+}
+
+
+/*** Pagination Container ***/
+
+.pagination__container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  height: 10%;
+  width: 100%;
+  font-size: 25px;
+  color: black;
+}
+
+.clickPageNumber {
+  background-color: lightgrey;
+  padding: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.clickPageNumber.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.clickPageNumber:hover:not(.active) {
+  background-color: #ddd;
+}
+
+
+/*** Login Page Specific ***/
+
+/***Title***/
+
+.pagetitle {
+  color: black;
+  font-size: 23px;
+  padding-top: 5%;
+  margin-left: 12%;
+}
+
+/***Notification***/
+
+#notification {
+  color:red;
+  font-size: 15px;
+  margin-left: 12%;
+}
+
+/***FORM***/
+
+.pageform {
+  height: 100%;
+  bottom: 0;
+  padding: 10px;
+  margin-left: 10%;
+  font-size: 17px;
+  color: black;
+}
+
+.pageform input[type=text],
+.pageform input[type=password] {
+  width: 80%;
+  padding: 13px;
+  margin: 0px 0 8px 0;
+  border: none;
+  background: #D8D8D8;
+  display: block;
+}
+
+.pageform input[type=text]:focus,
+.pageform input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+.form__btn {
+  margin-left: 25%;
+  background-color:#A3E8FF;
+  border-color: #979797;
+  border-width: 10px;
+  color: black;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  border-radius: 10px;
+}
+
+.form__link {
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  margin-top: 1%;
+  background: none;
+  border: none;
+  text-align: center;
+}
+
+
+
+/**Tablet Styles**/
+
+/**Responsive CSS for tablet sizes*/
+
+  
+@media only screen and (min-width: 500px) and (max-width: 1024px) {
+
+
+  /*** Center Menu (Icon) ***/
+
+#menu__icon {
+  height: 55px;
+  width: 70px;
+  margin-left: 5%;
+  margin-top: 5px;
+}
+
+
+/*** Menu (Hamburger) ***/
+
+#menu__right
+{
+display: inline;
+position: relative;
+top: 25px;
+right: 5%;
+
+z-index: 1;
+
+-webkit-user-select: none;
+user-select: none;
+}
+
+#menu__right input
+{
+display: none;
+width: 0px;
+height: 0px;
+position: relative;
+top: 0px;
+left: 0px;
+
+cursor: pointer;
+opacity: 0; 
+z-index: 0; 
+
+-webkit-touch-callout: none;
+}
+
+
+#menu__right span
+{
+display: none;
+width: 0px;
+height: 0px;
+margin-bottom: 0px;
+position: relative;
+
+background: none;
+border-radius: 0px;
+
+z-index: 0;
+}
+
+#menu__left {
+  display: inline;
+  position: relative;
+  top: 25px;
+  left: 5%;
+}
+
+.menu
+{
+position: relative;
+display: inline;
+background: none;
+right: 0px;
+padding: 0px;
+}
+
+.menu li
+{
+  display: inline;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  margin-right: 10px;
+  font-size: 28px;
+}
+
+
+
+/***MODAL***/
+
+#modal__container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+/***Pop up form**/
+
+
+.popupform__container{
+  width: 60%;
+}
+
+
+#popupform__title {
+  font-size: 40px;
+  margin-top: 12%;
+}
+
+#popupform__description {
+  font-size: 20px;
+}
+
+.popupform__container label {
+  color: black;
+  display: block;
+  margin-left: 12%;
+  font-size: 18px;
+}
+
+.popupform__container input[type=text],
+.popupform__container input[type=password] {
+  width: 70%;
+  margin-left: 12%;
+  padding: 17px;
+  text-align: left;
+}
+
+#popupform__deletekeyboard {
+  margin-top: 3%;
+  text-align: center;
+}
+
+#deletekeyboardbtn {
+  display: none;
+  color: red;
+  font-size: 20px;
+}
+
+
+/*** Keyboard Container ***/
+
+.keyboard__container {
+  position: relative;
+  height: 65%;
+  width: 100%;
+}
+
+#keyboard__index {
+  margin-top: 5%;
+}
+
+#keyboard__profile {
+  margin-top: 0%;
+}
+
+.keyboard__item {
+height: 40%;
+width: 70%;
+padding-left: 15%;
+padding-top: 8%;
+}
+
+.background__img {
+height: 100%;
+width: 100%;
+border-radius: 10px;
+}
+
+.keyboard__info {
+  font-size: 15px;
+  margin-left: 5%;
+}
+
+#keyboard__description0 {
+  top: 10%;
+}
+
+#keyboard__description1 {
+  top: 60%;
+}
+
+
+/*** profile css ***/
+
+.edit__img {
+  right: 16%;
+  height: 35px;
+  width: 35px;
+}
+
+
+#editbutton0 {
+  top: 10%;
+}
+
+#editbutton1 {
+  top: 60%;
+}
+
+
+#addnew {
+  margin-left: 0%;
+  margin-bottom: 0px;
+  padding: 18px 20px;
+  font-size: 20px;
+}
+
+
+/*** Login Page Specific ***/
+
+/***Title***/
+
+.pagetitle {
+  font-size: 25px;
+  margin-left: 20%;
+}
+
+/***Notification***/
+
+#notification {
+  font-size: 17px;
+  margin-left: 20%;
+}
+
+/***FORM***/
+
+.pageform {
+  margin-left: 20%;
+  font-size: 18px;
+}
+
+.pageform input[type=text],
+.pageform input[type=password] {
+  width: 35%;
+}
+
+
+.form__btn {
+  margin-left: 18%;
+  margin-top: 2%;
+  padding: 10px 20px;
+  width: 20%;
+}
+
+
+
+}
+
+
+
+/**Desktop Styles**/
+
+/**Responsive CSS for desktop sizes*/
+
+
+@media only screen and (min-width: 1080px) {
+
+  /*** Center Menu (Icon) ***/
+
+  #menu__icon {
+    height: 60px;
+    width: 100px;
+    margin-left: 5%;
+  }
+
+  /*** Right Menu (Hamburger) ***/
+  
+  #menu__right
+  {
+  display: inline;
+  position: relative;
+  top: 25px;
+  right: 5%;
+  
+  z-index: 1;
+  
+  -webkit-user-select: none;
+  user-select: none;
+  }
+  
+  #menu__right input
+  {
+  display: none;
+  width: 0px;
+  height: 0px;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  
+  cursor: pointer;
+  opacity: 0; 
+  z-index: 0; 
+  
+  -webkit-touch-callout: none;
+  }
+  
+  
+  #menu__right span
+  {
+  display: none;
+  width: 0px;
+  height: 0px;
+  margin-bottom: 0px;
+  position: relative;
+  
+  background: none;
+  border-radius: 0px;
+  
+  z-index: 0;
+  }
+  
+  #menu__left {
+    display: inline;
+    position: relative;
+    top: 25px;
+    left: 10%;
+  }
+  
+  .menu
+  {
+  position: relative;
+  display: inline;
+  background: none;
+  right: 0px;
+  padding: 0px;
+  }
+  
+  .menu li
+  {
+    display: inline;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-right: 10px;
+    font-size: 28px;
+  }
+
+
+
+  /***MODAL***/
+
+#modal__container {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding-top: 60px;
+}
+
+/***Pop up form**/
+
+
+.popupform__container{
+  width: 25%;
+
+}
+
+
+#popupform__title {
+  font-size: 35px;
+  margin-top: 15%;
+}
+
+#popupform__description {
+  font-size: 20px;
+}
+
+.popupform__container label {
+  display: block;
+  font-size: 18px;
+  color: black;
+  margin-left: 15%;
+}
+
+.popupform__container input[type=text],
+.popupform__container input[type=password] {
+  font-size: 15px;
+  width: 60%;
+  margin-left: 15%;
+  text-align: left;
+  margin-bottom: 2%;
+  padding: 18px;
+}
+
+
+.form__close {
+  font-size: 45px;
+}
+
+#savekeyboardbtn {
+  display: none;
+  margin-left: 0%;
+  width: 20%;
+  font-size: 20px;
+}
+
+#editkeyboardbtn {
+  display: none;
+  margin-left: 0%;
+  width: 20%;
+  font-size: 20px;
+}
+
+#deletekeyboardbtn {
+  font-size: 20px;
+}
+  
+  
+  /*** Keyboard Container ***/
+  
+
+  #keyboard__index {
+    margin-top: 10%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 55%;
+    width: 100%;
+  }
+
+  #keyboard__profile {
+    display: flex;
+    justify-content: center;
+    margin-top: 10%;
+    position: relative;
+    height: 55%;
+    width: 100%;
+  }
+
+.keyboard__item  {
+  height: 40%;
+  width: 25%;
+  padding-top: 0%;
+  padding-left: 15px;
+  padding-right: 15px;
+  }
+
+.background__img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  }
+
+  .keyboard__info {
+    font-size: 15px;
+    margin-left: 2%;
+  }
+
+  #keyboard__description0,
+  #keyboard__description1,
+  #keyboard__description2 {
+    top: 0%;
+  }
+
+  #keyboard__description3,
+  #keyboard__description4,
+  #keyboard__description5 {
+    top: 50%;
+  }
+  
+
+/*** profile css ***/
+
+.edit__img {
+  position: relative;
+  right: 0%;
+  height: 50px;
+  width: 50px;
+  visibility: visible;
+  opacity: 1;
+}
+
+#editbutton0,
+#editbutton1,
+#editbutton2 {
+  top: 5%;
+}
+
+.addnew__container {
+  position: absolute;
+  top: 12%;
+  right: 13%;
+  width: 8%;
+}
+
+#addnew {
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 18px;
+}
+
+  
+  /*** Pagination Container ***/
+
+.pagination__container {
+  margin-top: 0%;
+  height: 10%;
+  width: 100%;
+  font-size: 25px;
+  color: black;
+}
+
+/*** Login Page Specific ***/
+
+/***Title***/
+
+.pagetitle {
+  font-size: 27px;
+  font-weight: bolder;
+  margin-left: 15%;
+}
+
+/***Notification***/
+
+#notification {
+  font-size: 17px;
+  margin-left: 15%;
+}
+
+/***FORM***/
+
+.pageform {
+  margin-left: 15%;
+  font-size: 18px;
+}
+
+.pageform input[type=text],
+.pageform input[type=password] {
+  width: 20%;
+}
+
+
+.form__btn {
+  margin-left: 12%;
+  margin-top: 1%;
+  padding: 10px 20px;
+  width: 10%;
+}
+
+}

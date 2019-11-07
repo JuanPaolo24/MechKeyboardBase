@@ -1,22 +1,18 @@
 ﻿using MailKit.Net.Smtp;
-using MechKeyboardBase.Core.Entities;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Options;
 using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MechKeyboardBase.Web.Services
 {
     public class EmailService : IEmailService
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IHostingEnvironment _environment;
 
-        public EmailService(IHostingEnvironment env)
+        public EmailService(IHostingEnvironment environment)
         {
-            _env = env;
+            _environment = environment;
         }
 
         public async Task SendEmailAsync(string email, string subject, string message)
@@ -26,7 +22,7 @@ namespace MechKeyboardBase.Web.Services
                 var mimeMessage = new MimeMessage();
 
                 // TODO: Add a proper email for sending the confirmation link from
-                mimeMessage.From.Add(new MailboxAddress("MechkeyboardBase", "Email"));
+                mimeMessage.From.Add(new MailboxAddress("MechkeyboardBase", "azurecloud24@gmail.com"));
 
                 mimeMessage.To.Add(new MailboxAddress(email));
 
@@ -39,10 +35,9 @@ namespace MechKeyboardBase.Web.Services
 
                 using (var client = new SmtpClient())
                 {
-                    // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
                     client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-                    if (_env.IsDevelopment())
+                    if (_environment.IsDevelopment())
                     {
                         await client.ConnectAsync("smtp.gmail.com", 465, true);
                     }
@@ -52,7 +47,7 @@ namespace MechKeyboardBase.Web.Services
                     }
 
                     // TODO: Add a proper email for sending the confirmation link from
-                    await client.AuthenticateAsync("Email", "Password");
+                    await client.AuthenticateAsync("username", "password");
 
                     await client.SendAsync(mimeMessage);
 
