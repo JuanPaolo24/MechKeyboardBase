@@ -7,15 +7,23 @@ A way to store your Mechanical Keyboard collection details for the world to see.
 MechKeyboardBase is a simple CRUD application that allows user to store and display their Mechanical Keyboard Collection. 
 
 
+## Features
+
+- Manage Keyboard collection (Add, Edit and Delete)
+- User Authentication
+- Responsive design
+
+
 ## Tech Stack
 
 - ASP.Net Core Web API
 - SQL Server
 - Entity Framework Core
-- Vanilla JavaScript
-- HTML, CSS
+- HTML, CSS, JavaScript
 
 ## What is this project for?
 
-This project was created as a way to learn about ASP.Net Core Web API and also to get comfortable writing pure javascript. This also allowed myself to go through a full development life cycle of every aspect of a web application.
+This project was created as a way to learn about ASP.Net Core Web API and also to get comfortable writing pure javascript. This also allowed myself to go through a full development life cycle of every aspect of a web application. 
+
+
 
