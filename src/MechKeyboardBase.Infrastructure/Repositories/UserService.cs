@@ -77,22 +77,16 @@ namespace MechKeyboardBase.Infrastructure.Repositories
 
         public User GetByEmail(string email)
         {
-            IQueryable<User> query = _context.Users;
-
-            query = query
-                .Where(x => x.Email == email);
-
-            return query.FirstOrDefault();
+            return _context.Users
+                .Where(x => x.Email == email)
+                .FirstOrDefault();
         }
 
         public User GetByToken(Guid token)
         {
-            IQueryable<User> query = _context.Users;
-
-            query = query
-                .Where(x => x.ActivationToken == token);
-
-            return query.FirstOrDefault();
+            return _context.Users
+                .Where(x => x.ActivationToken == token)
+                .FirstOrDefault();
         }
 
         public User VerifyUser(int id, Guid token)
@@ -106,7 +100,6 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             }
 
             return user;
-
         }
 
         public void Update(User userParam, string password = null)

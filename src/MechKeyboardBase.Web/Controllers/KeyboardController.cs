@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,56 +21,50 @@ namespace MechKeyboardBase.Web.Controllers
 
         public KeyboardController(IKeyboardRepository repository)
         {
-            _repository = repository;
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository)); 
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<KeyboardViewModel[]>> Get()
+        public async Task<ActionResult> GetKeyboards()
         {
             var results = await _repository.GetAllKeyboardAsync();
 
-            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+            return Ok(results);
 
         }
 
 
         [HttpGet("page")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<KeyboardViewModel[]>> Get([FromQuery] int number, [FromQuery] int size)
+        public async Task<ActionResult> GetKeyboardByPage([FromQuery] int number, [FromQuery] int size)
         {
             var results = await _repository.GetKeyboardsByPageAsync(number, size);
 
-            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+            return Ok(results);
 
         }
 
 
         [HttpGet("{name}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<KeyboardViewModel[]>> Get(string keyboardname)
+        public async Task<ActionResult> GetKeyboardByName(string keyboardname)
         {
-            var keyboardFilters = new Keyboard()
-            {
-                KeyboardName = keyboardname
-            };
-    
-            var results = await _repository.FilterKeyboardsAsync(keyboardFilters);
+            var results = await _repository.GetKeyboardByName(keyboardname);
 
-            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+            if (results == null) return NotFound();
+
+            return Ok(results);
         }
 
 
 
         [HttpGet("profile/{username}")]
-        public async Task<ActionResult<KeyboardViewModel[]>> GetByUsername(string username)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> GetByUsername(string username)
         {
             var results = await _repository.GetKeyboardByUsernameAsync(username);
 
-            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+            if (results == null) return NotFound();
+
+            return Ok(results);
         }
 
 
@@ -79,35 +74,10 @@ namespace MechKeyboardBase.Web.Controllers
         {
             var results = await _repository.GetKeyboardPageByUsernameAsync(number, size, username);
 
-            return results.Select(result => result.ToKeyboardViewModel()).ToArray();
+            if (results == null) return NotFound();
+
+            return Ok(results);
         }
-
-
-        [HttpGet("filter")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<KeyboardViewModel[]>> FilterKeyboardSearch([FromQuery] string caseName = null,
-                                                                         [FromQuery] string pcb = null,
-                                                                         [FromQuery] string plate = null,
-                                                                         [FromQuery] string keycaps = null,
-                                                                         [FromQuery] string switchName = null)
-        {
-
-                var keyboardFilters = new Keyboard()
-                {
-                    Case = caseName,
-                    PCB = pcb,
-                    Plate = plate,
-                    Keycaps = keycaps,
-                    Switch = switchName
-                };
-
-                var results = await _repository.FilterKeyboardsAsync(keyboardFilters);
-
-
-                return results.Select(result => result.ToKeyboardViewModel()).ToArray();
-        }
-
 
 
         [HttpPost]

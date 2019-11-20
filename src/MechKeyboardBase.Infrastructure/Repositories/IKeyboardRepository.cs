@@ -9,18 +9,18 @@ namespace MechKeyboardBase.Infrastructure.Repositories
     public interface IKeyboardRepository
     {
 
-        void Add<T>(T entity) where T : class;
-        void Delete<T>(T entity) where T : class;
+        void Add(Keyboard keyboard);
+        void Delete(Keyboard keyboard);
         Task<bool> SaveChangesAsync();
 
-        Task<Keyboard[]> GetAllKeyboardAsync();
-        Task<Keyboard[]> GetKeyboardsByPageAsync(int pageNumber, int pageSize);
-
+        Task<IEnumerable<Keyboard>> GetAllKeyboardAsync();
+        Task<IEnumerable<Keyboard>> GetKeyboardsByPageAsync(int pageNumber, int pageSize);
+        Task<Keyboard> GetKeyboardByName(string keyboardname);
         Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username);
-        Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard);
 
-        Task<Keyboard[]> GetKeyboardByUsernameAsync(string username);
-        Task<Keyboard[]> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username);
+        
+        Task<IEnumerable<Keyboard>> GetKeyboardByUsernameAsync(string username);
+        Task<IEnumerable<Keyboard>> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username);
 
 
 

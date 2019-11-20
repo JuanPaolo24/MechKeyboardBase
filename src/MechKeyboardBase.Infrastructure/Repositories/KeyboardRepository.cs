@@ -18,29 +18,37 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             _context = context;
         }
 
-        public void Add<T>(T entity) where T : class
+        public void Add(Keyboard keyboard)
         {
-            _context.Add(entity);
+            if (keyboard == null)
+            {
+                throw new ArgumentNullException(nameof(keyboard));
+            }
+
+            _context.Add(keyboard);
         }
 
-        public void Delete<T>(T entity) where T : class
+        public void Delete(Keyboard keyboard)
         {
-            _context.Remove(entity);
+            if (keyboard == null)
+            {
+                throw new ArgumentNullException(nameof(keyboard));
+            }
+
+            _context.Remove(keyboard);
         }
 
-        public async Task<Keyboard[]> GetAllKeyboardAsync()
+        public async Task<IEnumerable<Keyboard>> GetAllKeyboardAsync()
         {
-
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query.OrderByDescending(x => x.KeyboardId);
-
-            return await query.ToArrayAsync();
+            return await _context.Keyboard
+                .OrderByDescending(x => x.KeyboardId)
+                .ToListAsync();
         }
 
 
-        public async Task<Keyboard[]> GetKeyboardsByPageAsync(int pageNumber, int pageSize)
+        public async Task<IEnumerable<Keyboard>> GetKeyboardsByPageAsync(int pageNumber, int pageSize)
         {
+
             IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query.OrderByDescending(x => x.KeyboardId);
@@ -50,38 +58,40 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return paginatedList.ToArray();
         }
 
-        public async Task<Keyboard[]> FilterKeyboardsAsync(Keyboard keyboard)
+        public async Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username)
         {
-            IQueryable<Keyboard> query = _context.Keyboard;
+            return await _context.Keyboard
+                .Where(t => t.Username == username && t.KeyboardName == keyboardname)
+                .FirstOrDefaultAsync();
+        }
 
-            if (!string.IsNullOrEmpty(keyboard.KeyboardName))
-                query = query.Where(x => x.KeyboardName == keyboard.KeyboardName);
-                if (!string.IsNullOrEmpty(keyboard.Case))
-                    query = query.Where(x => x.Case == keyboard.Case);
-                if (!string.IsNullOrEmpty(keyboard.PCB))
-                    query = query.Where(x => x.PCB == keyboard.PCB);
-                if (!string.IsNullOrEmpty(keyboard.Plate))
-                    query = query.Where(x => x.Plate == keyboard.Plate);
-                if (!string.IsNullOrEmpty(keyboard.Keycaps))
-                    query = query.Where(x => x.Keycaps == keyboard.Keycaps);
-                if (!string.IsNullOrEmpty(keyboard.Switch))
-                    query = query.Where(x => x.Switch == keyboard.Switch);
-
-
-
-            return await query.ToArrayAsync();
-
+        public async Task<Keyboard> GetKeyboardByName(string keyboardname)
+        {
+            return await _context.Keyboard
+                .Where(t => t.KeyboardName == keyboardname)
+                .FirstOrDefaultAsync();
         }
 
 
-        public async Task<Keyboard> GetKeyboardByNameAndUsernameAsync(string keyboardname, string username)
+        public async Task<IEnumerable<Keyboard>> GetKeyboardByUsernameAsync(string username)
+        {
+            return await _context.Keyboard
+                .Where(t => t.Username == username)
+                .OrderByDescending(x => x.KeyboardId)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Keyboard>> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username)
         {
             IQueryable<Keyboard> query = _context.Keyboard;
 
             query = query
-                .Where(t => t.Username == username && t.KeyboardName == keyboardname);
+                .Where(t => t.Username == username)
+                .OrderByDescending(x => x.KeyboardId);
 
-            return await query.FirstOrDefaultAsync();
+            var paginatedList = await Paginator<Keyboard>.CreateAsync(query, pageNumber, pageSize);
+
+            return paginatedList.ToArray();
         }
 
         public async Task<bool> SaveChangesAsync()
@@ -89,29 +99,6 @@ namespace MechKeyboardBase.Infrastructure.Repositories
             return (await _context.SaveChangesAsync()) > 0;
         }
 
-        public async Task<Keyboard[]> GetKeyboardByUsernameAsync(string username)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Where(t => t.Username == username)
-                .OrderByDescending(x => x.KeyboardId);
-               
-
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<Keyboard[]> GetKeyboardPageByUsernameAsync(int pageNumber, int pageSize, string username)
-        {
-            IQueryable<Keyboard> query = _context.Keyboard;
-
-            query = query
-                .Where(t => t.Username == username)
-                .OrderByDescending(x => x.KeyboardId);
-
-            var paginatedList = await Paginator<Keyboard>.CreateAsync(query, pageNumber, pageSize);
-
-            return paginatedList.ToArray();
-        }
+        
     }
 }
